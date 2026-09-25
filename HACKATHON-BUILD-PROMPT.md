@@ -1,877 +1,891 @@
-# G2 AudioRAG — Hackathon Build Prompt
+# G2 AI Hackathon — AudioRAG Build Prompt
 
-## How to Use This Prompt
+## 1. Role
 
-Execute **one step at a time**.
+You are my coding agent for the G2 AI Engineering Hackathon.
 
-After completing each step:
+We are building:
 
-1. Stop.
-2. Run the requested validation.
-3. Report what changed and whether the validation passed.
-4. Wait for the next step.
+> **AudioRAG — Hybrid Audio Search**
 
-Do not continue automatically to the next step.
+I am responsible for the architecture, technical direction, requirements, priorities, decisions, validation, and final submission.
 
-## Permanent Rules
+You assist with implementation, debugging, refactoring, tests, and technical suggestions.
 
-These rules apply to **every step**:
-
-1. **Never print, expose, echo, or commit secrets.**
-2. Never paste real API keys, Hugging Face tokens, database passwords, or connection strings into chat.
-3. Real secrets belong only in the project-root `.env`.
-4. Never commit `.env`.
-5. **Do not uninstall, replace, downgrade, or otherwise change an existing working CPU PyTorch installation.**
-6. Do not install CUDA.
-7. Do not use Docker.
-8. Do not use `sudo`.
-9. Do not use conda.
-10. Do not install a local PostgreSQL server.
-11. Do not invent audio recordings, transcripts, ground-truth data, evaluation results, or performance scores.
-12. Use the external Supabase PostgreSQL database with pgvector.
-13. CPU-only execution.
-14. If a required package is already installed and working, reuse it instead of unnecessarily reinstalling it.
-15. Do not drop or destroy existing database tables.
-16. Follow `ARCHITECTURE.md` unless a technical constraint requires a documented change.
+Follow this prompt and the repository documentation exactly.
 
 ---
 
-# Step 1 — Project Rules and Foundation
+## 2. Objective
 
-Build AudioRAG in the current project folder.
+Build a working audio-search system for 5–6 two-speaker recordings.
 
-Do not use Docker, sudo, conda, or a local PostgreSQL installation.
+The system must:
 
-The database is external Supabase PostgreSQL with pgvector.
+- Transcribe audio.
+- Identify speakers.
+- Preserve timestamps.
+- Create speaker-aware searchable chunks.
+- Support exact keyword retrieval.
+- Support semantic retrieval.
+- Combine both using RRF.
+- Rerank the strongest candidates.
+- Return file + speaker + timestamp + snippet.
+- Generate a grounded answer using retrieved evidence.
+- Allow the user to play audio from a citation timestamp.
+- Evaluate retrieval quality using a labeled golden dataset.
 
-Connect using psycopg 3 through `DATABASE_URL` stored in the project-root `.env`.
+Primary objective:
 
-Create the initial project structure:
+> **Retrieval quality and reliable evidence traceability are more important than unnecessary feature complexity.**
+
+---
+
+## 3. Source of Truth
+
+Use these repository files as the project specification:
 
 ```text
-app/
-app/db/
-db/
-dataset/
-dataset/audio/
-frontend/
-```
-
-Create:
-
-```text
-.env.example
-.gitignore
-requirements.txt
 README.md
+ARCHITECTURE.md
+EVALUATION.md
+AGENT-DISCLOSURE.md
 ```
 
-The README should briefly state:
+Do not invent a different architecture.
 
-- CPU-only requirement
-- External Supabase PostgreSQL
-- No Docker
-- No sudo
-- No conda
-- No local PostgreSQL
-- Secrets remain in `.env`
-- Actual implementation is being built during the official hackathon window
+If implementation details conflict with these files, stop and tell me before making a major architectural change.
 
-Do not implement application functionality yet.
-
-### Stop condition
-
-Stop after the folders and foundation files exist.
-
-Report:
-
-- created files
-- created folders
-- Python version
-- existing PyTorch version, if installed
-
-Do not print secrets.
+If a practical implementation detail must change because of the environment, explain the change and document it.
 
 ---
 
-# Step 2 — API and Database Health
-
-Add a FastAPI application:
-
-```text
-app/main.py
-```
-
-Read these values from the project-root `.env`:
-
-```text
-APP_NAME
-APP_ENV
-DEBUG
-DATABASE_URL
-GOOGLE_API_KEY
-GROQ_API_KEY
-HF_TOKEN
-```
-
-Add:
-
-```text
-GET /health
-GET /health/db
-```
-
-`/health` should return basic application status.
-
-`/health/db` should test a PostgreSQL connection using psycopg 3.
+# 4. Technology Stack
 
 Use:
 
 ```text
-sslmode=require
-sslnegotiation=postgres
-connect_timeout=10
-prepare_threshold=None
+Backend:
+Python 3.10+
+FastAPI
+Pydantic
+
+Audio:
+PyAV
+pyannote.audio
+faster-whisper
+
+Embeddings:
+BAAI/bge-small-en-v1.5
+384 dimensions
+
+Reranking:
+BAAI/bge-reranker-base
+
+Database:
+PostgreSQL
+pgvector
+PostgreSQL Full-Text Search
+
+LLM:
+Google Gemini
+Groq fallback
+
+Frontend:
+React
+TypeScript
+Vite
 ```
 
-Never log:
-
-- `DATABASE_URL`
-- database password
-- API keys
-- HF token
-- complete environment variables
-
-If the database password contains `#`, explain that it must be URL-encoded as `%23`.
-
-### Validation
-
-Start FastAPI and verify:
-
-```text
-GET /health
-GET /health/db
-```
-
-`/health/db` must report a successful database connection.
-
-### Stop condition
-
-Stop only after `/health/db` returns connected.
-
-Do not proceed to Step 3 automatically.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+Do not introduce OpenAI dependencies unless I explicitly request them.
 
 ---
 
-# Step 3 — Database Schema
+# 5. Canonical Architecture
 
-Create:
+Implement this pipeline:
 
 ```text
-db/schema.sql
-app/db/init_db.py
+Audio
+  ↓
+Validation
+  ↓
+16 kHz Mono WAV
+  ↓
+┌───────────────────┐
+│                   │
+▼                   ▼
+Pyannote           Whisper
+Diarization        ASR
+│                   │
+└────────┬──────────┘
+         ▼
+Timestamp Alignment
+         ↓
+Speaker-Aware Chunks
+         ↓
+PII Redaction
+         ↓
+┌───────────────────┐
+│                   │
+▼                   ▼
+PostgreSQL FTS    pgvector
+Lexical Search    Semantic Search
+│                   │
+└────────┬──────────┘
+         ▼
+        RRF
+         ↓
+      Top 20
+         ↓
+     Reranker
+         ↓
+       Top 5
+         ↓
+Context Compression
+         ↓
+Grounded Gemini
+         ↓
+Groq fallback
+         ↓
+Answer + Citations
 ```
 
-Create the `chunks` table according to the architecture.
+Important:
 
-Required fields:
+**Pyannote and Whisper process the same normalized audio independently.**
+
+Do NOT run Whisper separately for every speaker turn.
+
+Run Whisper once over the complete recording and align its timestamps with diarization timestamps.
+
+---
+
+# 6. Database Rule
+
+The canonical searchable table is:
 
 ```text
+chunks
+```
+
+Use `chunks` consistently across:
+
+```text
+SQL
+Python
+retrieval
+routes
+tests
+evaluation
+documentation
+```
+
+Do not create competing names such as:
+
+```text
+document_chunks
+transcript_chunks
+```
+
+unless I explicitly approve it.
+
+Each chunk should preserve:
+
+```text
+id
 file_id
 speaker
 start_ts
 end_ts
 content
 content_redacted
-embedding VECTOR(384)
-tsv
+embedding
+search_vector
 ```
 
-`tsv` should be a generated English PostgreSQL `tsvector` based on `content_redacted`.
-
-Create:
-
-- GIN index on `tsv`
-- IVFFlat cosine index on `embedding`
-
-Do not drop existing tables.
-
-Create:
-
-```bash
-python -m app.db.init_db
-```
-
-The initialization command should safely create missing objects without destroying existing data.
-
-Add:
+Embedding dimension:
 
 ```text
-GET /health/pgvector
-GET /health/schema
+384
 ```
 
-### Validation
+Use PostgreSQL FTS with a GIN index.
 
-Verify:
-
-```text
-/health/pgvector
-/health/schema
-```
-
-and verify that:
-
-- `chunks` exists
-- `tsv` exists
-- GIN index exists
-- vector index exists
-
-### Stop condition
-
-Stop after the schema and indexes are verified.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+Use pgvector with an HNSW index where supported.
 
 ---
 
-# Step 4 — Local CPU Models
+# 7. Audio Processing Rules
 
-First inspect the current environment.
-
-Check:
+Normalize uploaded media to:
 
 ```text
-torch
-torchaudio
-faster-whisper
-pyannote.audio
-sentence-transformers
-torchcodec
+16 kHz
+mono
+WAV
 ```
 
-If the existing CPU PyTorch installation is working, **do not reinstall, replace, downgrade, or upgrade it unless absolutely required and explicitly confirmed**.
+Use the normalized audio for both diarization and ASR.
 
-Do not install CUDA.
-
-Install missing CPU-compatible dependencies into:
+Diarization provides:
 
 ```text
-./venv
+speaker
+start
+end
 ```
 
-Required stack:
+Whisper provides timestamped transcript words.
+
+Align words to speaker segments.
+
+Use deterministic timestamp alignment.
+
+Create speaker-aware chunks.
+
+Merge appropriate adjacent same-speaker content rather than producing extremely tiny chunks.
+
+Preserve:
 
 ```text
-FastAPI
-uvicorn
-pydantic
-psycopg[binary]
-faster-whisper
-pyannote.audio
-sentence-transformers
-torchcodec
+file
+speaker
+start_ts
+end_ts
+text
 ```
 
-Required models:
-
-```text
-faster-whisper small.en
-pyannote/speaker-diarization-community-1
-BAAI/bge-small-en-v1.5
-BAAI/bge-reranker-base
-```
-
-Use CPU.
-
-Models must load lazily and only once per process.
-
-Before the first model load, configure:
-
-```text
-OMP_NUM_THREADS
-torch.set_num_threads(...)
-```
-
-based on the available CPU cores.
-
-Do not print:
-
-- API keys
-- HF token
-- database credentials
-
-Create a CPU verification script that verifies the required models can load.
-
-### Validation
-
-Run the verification script.
-
-Report only:
-
-```text
-model: PASS
-device: CPU
-```
-
-or an equivalent safe status.
-
-### Stop condition
-
-Stop after each required model has successfully loaded or after clearly reporting which model failed.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+throughout retrieval.
 
 ---
 
-# Step 5 — Audio Indexing
+# 8. Ingestion
 
-Add:
+Implement:
 
 ```text
 POST /ingest
 ```
 
-Supported input formats:
+Flow:
 
 ```text
-wav
-mp3
-m4a
-flac
-ogg
+Upload
+ ↓
+Validate
+ ↓
+Save original
+ ↓
+Normalize
+ ↓
+Diarization
+ ↓
+Whisper
+ ↓
+Timestamp alignment
+ ↓
+Speaker-aware chunking
+ ↓
+PII redaction
+ ↓
+Embeddings
+ ↓
+Database indexing
 ```
 
-Store uploaded recordings under:
+Do not reload models for every request.
+
+Cache/load models once per application process where practical.
+
+---
+
+# 9. Retrieval
+
+Implement two independent retrieval paths.
+
+### Lexical
+
+PostgreSQL Full-Text Search:
 
 ```text
-dataset/audio/
+Top 50
 ```
 
-Do not commit recordings to Git.
+### Semantic
 
-For non-WAV input, convert to:
+Generate query embedding and search pgvector:
 
 ```text
-mono
-16 kHz
+Top 50
 ```
 
-Use `pyannote/speaker-diarization-community-1` for speaker diarization.
-
-Accept:
+Then:
 
 ```text
-num_speakers
-```
-
-from the upload request.
-
-Default:
-
-```text
-2
-```
-
-Transcribe the **whole audio file once** using faster-whisper.
-
-Default model:
-
-```text
-small.en
+Lexical Top 50
+       +
+Semantic Top 50
+       ↓
+RRF
+       ↓
+Top 20
+       ↓
+BGE Reranker
+       ↓
+Top 5
 ```
 
 Use:
 
 ```text
-vad_filter=True
-beam_size=1
-word timestamps=True
+RRF k = 60
 ```
 
-Assign each ASR word to the speaker turn containing the word midpoint.
-
-Do not run a separate Whisper transcription for every speaker turn.
-
-Merge short turns under 3 seconds into a neighboring same-speaker turn where appropriate.
-
-Redact before indexing:
-
-- email addresses
-- phone numbers
-- SSNs
-- long numeric identifiers
-
-Use regex-based redaction.
-
-Embed `content_redacted` using:
+Formula:
 
 ```text
-BAAI/bge-small-en-v1.5
+RRF(d) = Σ 1 / (k + rank(d))
 ```
 
-Store the resulting chunks in PostgreSQL.
+Do not rely only on vector search.
 
-## Model Selection
-
-Use this mapping:
-
-```text
-Low    = faster-whisper base.en
-Medium = faster-whisper small.en  ← default
-High   = faster-whisper medium.en
-Auto   = choose based on available CPU resources
-```
-
-Language:
-
-```text
-English
-```
-
-is the default.
-
-When running the backend during development, use:
-
-```bash
-uvicorn app.main:app --reload --reload-dir app
-```
-
-so generated WAV files do not unnecessarily trigger application reloads.
-
-### Validation
-
-Index one short real audio file.
-
-Verify:
-
-- file saved
-- diarization completed
-- transcription completed
-- speaker information exists
-- timestamps exist
-- chunks inserted
-- embeddings inserted
-
-### Stop condition
-
-Stop after one short real file is successfully indexed.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+Do not rely only on lexical search.
 
 ---
 
-# Step 6 — Hybrid Search and Answer Generation
+# 10. Reranking
 
-Add:
-
-```text
-POST /search
-```
-
-## Query Guardrail
-
-Before any database search:
-
-Reject the query if it is:
-
-- empty
-- longer than 1000 characters
-- an obvious instruction-override/prompt-injection attempt
-
-Rejected queries must not execute retrieval.
-
-## Hybrid Retrieval
-
-Run lexical and vector retrieval independently.
-
-Lexical:
-
-```text
-PostgreSQL ts_rank_cd
-Top 50
-```
-
-Semantic:
-
-```text
-pgvector cosine similarity
-Top 50
-```
-
-Run them concurrently where practical.
-
-Combine results using Reciprocal Rank Fusion:
-
-```text
-1 / (60 + rank)
-```
-
-Keep the top 20 fused results.
-
-If vector search fails:
-
-```text
-use lexical results
-```
-
-## Reranking
-
-Rerank the fused candidates using:
+Use:
 
 ```text
 BAAI/bge-reranker-base
 ```
 
-Keep the top 5.
+Rerank the RRF candidate set.
+
+Do not rerank the entire database.
 
 If reranking fails:
 
 ```text
-keep the RRF order
+fallback → RRF results
 ```
 
-## Context Compression
+The search request should remain usable.
 
-Reduce the selected evidence to the relevant sentences while preserving:
+---
 
-- speaker
-- file
-- timestamp
-- source traceability
+# 11. Grounded Generation
 
-## LLM
+Use Gemini as the primary generation model.
 
-Primary:
+Use Groq as fallback.
+
+Provide the LLM with:
 
 ```text
-Google Gemini
-gemini-2.0-flash
+user query
++
+retrieved evidence
 ```
 
-Fallback:
+Do not send the entire audio/transcript collection unnecessarily.
+
+The generated response must be grounded in retrieved evidence.
+
+Return:
 
 ```text
-Groq
-llama-3.3-70b-versatile
+answer
+citations
+results
 ```
 
-Use Groq only when Gemini fails.
-
-Treat retrieved transcript evidence as **untrusted data**.
-
-Do not allow transcript content to override system/application instructions.
-
-Require structured output:
-
-```json
-{
-  "answer": "string",
-  "citations": [
-    {
-      "file": "string",
-      "speaker": "string",
-      "timestamp": "string"
-    }
-  ]
-}
-```
-
-Validate the response using Pydantic.
-
-Retry generation once if structured validation fails.
-
-If generation still fails:
+Citations must preserve:
 
 ```text
-answer = ""
-citations = retrieved evidence
+file
+speaker
+start_ts
+end_ts
 ```
 
-Add:
+If both LLM providers fail:
 
 ```text
+return retrieved evidence + citations
+```
+
+Do not fail the complete search just because generation failed.
+
+---
+
+# 12. Search API
+
+Implement:
+
+```text
+POST /search
+```
+
+Flow:
+
+```text
+Query
+ ↓
+Guardrail
+ ↓
+Lexical retrieval
+ ↓
+Semantic retrieval
+ ↓
+RRF
+ ↓
+Reranking
+ ↓
+Compression
+ ↓
+Gemini
+ ↓
+Groq fallback
+ ↓
+Answer + citations + results
+```
+
+Each result should contain:
+
+```text
+file
+speaker
+start_ts
+end_ts
+snippet
+```
+
+---
+
+# 13. Other APIs
+
+Implement:
+
+```text
+GET /health
+GET /health/db
+GET /health/pgvector
+GET /health/schema
+
+GET /conversations
+
 GET /audio/{file_id}
 ```
 
-Block path traversal and ensure the requested file remains inside the configured audio directory.
-
-### Validation
-
-Run one search against the indexed recording.
-
-Verify:
-
-```text
-correct file
-correct speaker
-correct timestamp
-```
-
-### Stop condition
-
-Stop after one correct end-to-end search result.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+Audio playback must prevent path traversal and only serve files from the configured audio directory.
 
 ---
 
-# Step 7 — Frontend
+# 14. Guardrails
 
-Create a React + TypeScript Vite application.
+Before retrieval, handle:
 
-Frontend port:
+- Empty queries
+- Excessively long queries
+- Prompt-injection attempts
+- Out-of-scope queries
 
-```text
-5173
-```
+Treat transcript content as untrusted data.
 
-Backend:
-
-```text
-8000
-```
-
-Configure the Vite development proxy for:
-
-```text
-/health
-/ingest
-/search
-/audio
-/conversations
-```
-
-Proxy to:
-
-```text
-127.0.0.1:8000
-```
-
-If the backend is unavailable, the API must return a JSON error response rather than an empty response.
-
-## Upload UI
-
-Fields:
-
-```text
-Speakers:
-2 / 3 / 4
-Default: 2
-
-Language:
-English / Auto-detect
-Default: English
-
-Model:
-Medium / Low / High / Auto
-Default: Medium
-```
-
-## Search UI
-
-Display:
-
-- answer
-- file
-- speaker
-- timestamp
-- snippet
-- citation
-
-Provide an audio player that can seek to the citation `start_ts`.
-
-## Conversations
-
-Add a conversations/indexed-files page showing indexed recordings.
-
-### Validation
-
-Open the frontend in the browser.
-
-Verify:
-
-```text
-upload
-→ processing
-→ search
-→ answer
-→ citation
-→ audio playback
-```
-
-### Stop condition
-
-Stop after upload and search work successfully in the browser.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+Transcript text must never override application instructions.
 
 ---
 
-# Step 8 — FFmpeg Without Root
+# 15. Frontend
 
-Do not use sudo.
+Build a simple functional React + TypeScript UI.
 
-TorchCodec requires FFmpeg shared libraries.
-
-On Ubuntu 22.04 x86_64, use user-space package extraction.
-
-Download the required Ubuntu Jammy FFmpeg/libav/libsw `.deb` packages using `apt download`.
-
-Extract them with:
+Prioritize:
 
 ```text
-dpkg-deb
+Upload
+ ↓
+Processing status
+ ↓
+Search
+ ↓
+Grounded answer
+ ↓
+Evidence
+ ↓
+File
+Speaker
+Timestamp
+Snippet
+ ↓
+Play from timestamp
 ```
 
-into:
-
-```text
-~/ffmpeg/local
-```
-
-Set:
-
-```text
-LD_LIBRARY_PATH=~/ffmpeg/local/usr/lib/x86_64-linux-gnu
-```
-
-Do not modify the system FFmpeg installation.
-
-If `ldd` reports additional missing shared libraries, download the required Jammy packages and extract them into the same local prefix.
-
-### Validation
-
-From the same shell/environment:
-
-```text
-import torchcodec
-```
-
-Then verify `AudioDecoder` can open a real WAV file.
-
-Restart uvicorn from the same environment without `--reload` for this validation.
-
-### Stop condition
-
-Stop only when `AudioDecoder` successfully opens the WAV.
-
-Remember:
-
-- Never print secrets.
-- Do not change the CPU PyTorch installation.
+Do not spend excessive time on visual polish before the complete backend flow works.
 
 ---
 
-# Step 9 — Documentation Only
+# 16. Evaluation
 
-Update `README.md` with the actual run procedure.
+Create a small labeled golden dataset from the final hackathon recordings.
 
-Document:
+Target:
 
 ```text
-1. Create/use root venv
-2. Configure Supabase DATABASE_URL
-3. Configure HF_TOKEN
-4. Configure GOOGLE_API_KEY
-5. Configure GROQ_API_KEY as fallback
-6. Configure LD_LIBRARY_PATH
-7. Start backend with uvicorn without --reload
-8. Start frontend with npm run dev
+5–6 recordings
+2 speakers each
+approximately 8–10 minutes
 ```
 
-Do not document or expose actual secret values.
-
-Update `ARCHITECTURE.md`:
+Include queries covering:
 
 ```text
-Jev is not used in this build.
-
-Logging uses standard-library stage logs with a trace ID.
+Exact keyword
+Paraphrase
+Speaker-specific
+Hard negative
+Cross-file ambiguity
 ```
 
-Do not add:
+Measure:
 
 ```text
-golden_queries.json
-eval/test_recall.py
-```
-
-yet.
-
-Do not invent:
-
-```text
-Recall
-Precision
-MRR
-latency
-accuracy
-```
-
-Do not add fake evaluation results.
-
-`EVALUATION.md` must contain methodology/targets only until actual evaluation is performed.
-
----
-
-# Event-Day Evaluation Prompt
-
-After the implementation is complete during the official hackathon window, create:
-
-```text
-dataset/audio/
-eval/golden_queries.json
-eval/test_recall.py
-```
-
-Use only the real recordings collected/created during the official hacking window.
-
-Create the golden queries from those recordings.
-
-Do not use pre-existing rehearsal recordings as the hackathon evaluation dataset.
-
-Run the evaluation and record the actual:
-
-```text
+Recall@1
+Recall@3
 Recall@5
 Precision@5
 MRR
 ```
 
-Do not fabricate or estimate results.
+Initial targets:
 
-Document the final methodology and actual measured results.
+```text
+Recall@5    >= 0.80
+Precision@5 >= 0.60
+MRR         >= 0.70
+```
+
+These are targets only.
+
+**Never fabricate actual results.**
+
+Run the evaluation and record the real measured values.
 
 ---
 
-# Final Rules
+# 17. Ablation Study
 
-At every step:
+Compare:
 
 ```text
-NEVER PRINT SECRETS.
-NEVER CHANGE THE CPU PYTORCH INSTALLATION.
+1. Lexical only
+2. Semantic only
+3. Hybrid / RRF
+4. Hybrid / RRF + reranker
 ```
 
-Do not proceed to the next step until the current step's validation succeeds or the failure is clearly reported.
+Use the same queries and ground truth.
+
+Report actual results.
+
+Do not assume that the more complex pipeline automatically performs better.
+
+Use error analysis to identify failures such as:
+
+```text
+ASR
+Diarization
+Alignment
+Chunking
+Lexical retrieval
+Semantic retrieval
+RRF
+Reranking
+LLM grounding
+Citation
+```
+
+---
+
+# 18. Performance Rules
+
+The rehearsal environment may be CPU-only.
+
+Optimize for CPU without sacrificing retrieval quality unnecessarily.
+
+Important rules:
+
+```text
+Whisper once per recording
+Pyannote once per recording
+Reuse normalized WAV
+Load models once
+Use CPU-friendly model settings
+Use int8 for Whisper where validated
+Use beam_size=1 if quality remains acceptable
+Use VAD where appropriate
+```
+
+Do not optimize based on assumptions.
+
+Measure actual stage latency before changing architecture.
+
+Track:
+
+```text
+diarization
+ASR
+embedding
+database
+retrieval
+reranking
+LLM
+total
+```
+
+---
+
+# 19. Failure Handling
+
+Required fallbacks:
+
+```text
+Reranker failure
+→ RRF results
+
+Vector failure
+→ Lexical results
+
+Gemini failure
+→ Groq
+
+Gemini + Groq failure
+→ Evidence + citations
+
+Compression failure
+→ Original ranked evidence
+```
+
+Log which fallback was used.
+
+---
+
+# 20. Testing
+
+Add tests for:
+
+```text
+API health
+Upload validation
+Search
+Lexical retrieval
+Semantic retrieval
+RRF
+Reranker fallback
+Guardrails
+Citation structure
+Path traversal
+Invalid files
+Empty uploads
+```
+
+Also perform at least one complete end-to-end test:
+
+```text
+Upload
+ ↓
+Index
+ ↓
+Search
+ ↓
+Retrieve
+ ↓
+Generate
+ ↓
+Citation
+ ↓
+Audio playback
+```
+
+---
+
+# 21. Coding-Agent Workflow
+
+Work **one step at a time**.
+
+For every step:
+
+```text
+1. Inspect existing code.
+2. Identify reusable components.
+3. Explain the planned change briefly.
+4. Implement only that step.
+5. Run relevant tests/checks.
+6. Fix necessary issues.
+7. Report what changed and what was validated.
+8. STOP and wait for my next instruction.
+```
+
+Do NOT implement the entire project in one response.
+
+Do NOT silently skip testing.
+
+Do NOT rewrite working code without a reason.
+
+---
+
+# 22. Agent Log
+
+After every significant coding-agent interaction, I will update:
+
+```text
+agent_log.md
+```
+
+The log should capture:
+
+```text
+Time
+Task
+Prompt/direction
+Result
+Decision
+```
+
+Do not reconstruct the log later from memory.
+
+---
+
+# 23. Priority
+
+If time becomes limited:
+
+### P0
+
+```text
+Upload
+Normalization
+Diarization
+Whisper
+Alignment
+Speaker chunks
+PostgreSQL
+pgvector
+FTS
+Hybrid retrieval
+RRF
+Search API
+Timestamp results
+```
+
+### P1
+
+```text
+Reranker
+Gemini
+Groq fallback
+Audio seek
+Frontend
+```
+
+### P2
+
+```text
+Evaluation
+Ablation
+Error analysis
+Guardrails
+Latency instrumentation
+```
+
+### P3
+
+```text
+UI polish
+Additional visualizations
+Non-essential enhancements
+```
+
+Never sacrifice P0 functionality for P3 polish.
+
+---
+
+# 24. Anti-Patterns
+
+Do not:
+
+- Transcribe every speaker turn separately.
+- Use only semantic search.
+- Use only lexical search.
+- Send the entire dataset to the LLM.
+- Fabricate evaluation results.
+- Hard-code API keys.
+- Commit `.env`.
+- Add unnecessary agents.
+- Add acoustic embeddings before the core retrieval system works.
+- Replace PostgreSQL/pgvector without a concrete reason.
+- Replace Gemini/Groq without a concrete reason.
+- Build complex UI before backend retrieval works.
+- Claim production-scale performance from a tiny dataset.
+- Hide fallback behavior.
+- Claim a feature works without testing it.
+
+---
+
+# 25. Final Acceptance Criteria
+
+Before considering the build complete, verify:
+
+```text
+[ ] Audio upload works
+[ ] Audio normalization works
+[ ] Diarization works
+[ ] Whisper transcription works
+[ ] Timestamp alignment works
+[ ] Speaker-aware chunks exist
+[ ] PII redaction works
+[ ] Embeddings are stored
+[ ] PostgreSQL FTS works
+[ ] pgvector search works
+[ ] Hybrid retrieval works
+[ ] RRF works
+[ ] Reranking works or fallback is validated
+[ ] Gemini generation works or fallback is validated
+[ ] Groq fallback works
+[ ] Citations contain file/speaker/timestamp
+[ ] Audio playback seeks to citation
+[ ] Frontend works
+[ ] Evaluation runs
+[ ] Actual metrics are recorded
+[ ] Ablation results are recorded
+[ ] Failure cases are documented
+[ ] agent_log is updated
+[ ] No secrets are committed
+```
+
+---
+
+# 26. Final Rule
+
+Build a **working, measurable, explainable system**.
+
+Prioritize:
+
+```text
+Retrieval quality
+        +
+Evidence traceability
+        +
+Reliable engineering
+        +
+Measured evaluation
+        +
+Clear demo
+```
+
+Do not add complexity just to make the architecture look more advanced.
+
+**Start with P0. Implement one step at a time. Test each step. Stop after each step and wait for my instruction.**
