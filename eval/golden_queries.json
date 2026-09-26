@@ -1,0 +1,317 @@
+[
+  {
+    "id": 1,
+    "query": "What did they discuss about hybrid search?",
+    "query_type": "keyword",
+    "file_hint": "AI_Engineering_Mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "AI_Engineering_Mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 111.8,
+        "end_ts": 142.1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "query": "What metrics did they mention for evaluating retrieval systems?",
+    "query_type": "paraphrase",
+    "file_hint": "AI_Engineering_Mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "AI_Engineering_Mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 111.8,
+        "end_ts": 142.1
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "query": "Why can AI coding agents fail in production?",
+    "query_type": "keyword",
+    "file_hint": "AI_Engineering_Mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "AI_Engineering_Mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 254.7,
+        "end_ts": 314.7
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "query": "What are the main reasons an agent-based system might fail?",
+    "query_type": "paraphrase",
+    "file_hint": "AI_Engineering_Mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "AI_Engineering_Mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 254.7,
+        "end_ts": 314.7
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "query": "What did they discuss about the electrical power plan?",
+    "query_type": "keyword",
+    "file_hint": "Behavioral_mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Behavioral_mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 55.58,
+        "end_ts": 94.9,
+        "chunk_id": "f538cbdb-d3dc-4b63-b5e4-aab33beb4757"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "query": "How did the candidate demonstrate leadership skills?",
+    "query_type": "speaker_specific",
+    "file_hint": "Behavioral_mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Behavioral_mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 178.86,
+        "end_ts": 209.24,
+        "chunk_id": "31ce3515-4b8b-4d11-ac02-3bd73b84c1d7"
+      },
+      {
+        "file": "Behavioral_mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 209.24,
+        "end_ts": 224.56,
+        "chunk_id": "bca04378-0160-4386-b607-f3ea363c325c"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "query": "How did the candidate handle a difficult or challenging situation?",
+    "query_type": "paraphrase",
+    "file_hint": "Behavioral_mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Behavioral_mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 55.58,
+        "end_ts": 94.9,
+        "chunk_id": "f538cbdb-d3dc-4b63-b5e4-aab33beb4757"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "query": "What were the candidate's biggest career goals?",
+    "query_type": "speaker_specific",
+    "file_hint": "Behavioral_mock_Interview.wav",
+    "relevant_chunks": [],
+    "hard_negative_style": true
+  },
+  {
+    "id": 9,
+    "query": "What coding problem involving a string and an array was discussed?",
+    "query_type": "keyword",
+    "file_hint": "Google_Coding_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Google_Coding_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 29.3,
+        "end_ts": 61.1
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "query": "What did they say about lowercase strings and empty strings?",
+    "query_type": "keyword",
+    "file_hint": "Google_Coding_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Google_Coding_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 150.2,
+        "end_ts": 160.3
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "query": "How can you determine whether one string is a substring of another?",
+    "query_type": "paraphrase",
+    "file_hint": "Google_Coding_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Google_Coding_Interview.wav",
+        "speaker": "SPEAKER_01",
+        "start_ts": 165.7,
+        "end_ts": 197.2
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "query": "What solution approach did the candidate propose for the coding problem?",
+    "query_type": "paraphrase",
+    "file_hint": "Google_Coding_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "Google_Coding_Interview.wav",
+        "speaker": "SPEAKER_01",
+        "start_ts": 261.4,
+        "end_ts": 293.2
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "query": "What did they discuss about GPT-4?",
+    "query_type": "keyword",
+    "file_hint": "llm_systems_interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "llm_systems_interview.wav",
+        "speaker": "SPEAKER_01",
+        "start_ts": 0.0,
+        "end_ts": 32.6
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "query": "What is reinforcement learning from human feedback?",
+    "query_type": "keyword",
+    "file_hint": "llm_systems_interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "llm_systems_interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 342.3,
+        "end_ts": 369.9
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "query": "What is ChatGPT and how does it work?",
+    "query_type": "cross_file",
+    "file_hint": "llm_systems_interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "llm_systems_interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 277.2,
+        "end_ts": 298.0
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "query": "What are the potential dangers or risks of AI?",
+    "query_type": "paraphrase",
+    "file_hint": "llm_systems_interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "llm_systems_interview.wav",
+        "speaker": "SPEAKER_01",
+        "start_ts": 64.2,
+        "end_ts": 95.9
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "query": "How should a chatbot maintain conversation history?",
+    "query_type": "paraphrase",
+    "file_hint": "System_Design_of_ChatGPT.wav",
+    "relevant_chunks": [
+      {
+        "file": "System_Design_of_ChatGPT.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 0.0,
+        "end_ts": 38.1
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "query": "How many chats can one user have?",
+    "query_type": "keyword",
+    "file_hint": "System_Design_of_ChatGPT.wav",
+    "relevant_chunks": [
+      {
+        "file": "System_Design_of_ChatGPT.wav",
+        "speaker": "SPEAKER_01",
+        "start_ts": 38.1,
+        "end_ts": 49.9
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "query": "How would you design a chatbot that remembers previous conversations?",
+    "query_type": "paraphrase",
+    "file_hint": "System_Design_of_ChatGPT.wav",
+    "relevant_chunks": [
+      {
+        "file": "System_Design_of_ChatGPT.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 0.0,
+        "end_ts": 38.1
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "query": "How can a chatbot provide factual and reliable information?",
+    "query_type": "paraphrase",
+    "file_hint": "System_Design_of_ChatGPT.wav",
+    "relevant_chunks": [
+      {
+        "file": "System_Design_of_ChatGPT.wav",
+        "speaker": "SPEAKER_01",
+        "start_ts": 299.62,
+        "end_ts": 323.48,
+        "chunk_id": "b4b46b6c-603b-490e-ab55-a757dfb5ae34"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "query": "How can a retrieval system combine exact matching with meaning-based matching?",
+    "query_type": "cross_file",
+    "file_hint": "AI_Engineering_Mock_Interview.wav",
+    "relevant_chunks": [
+      {
+        "file": "AI_Engineering_Mock_Interview.wav",
+        "speaker": "SPEAKER_00",
+        "start_ts": 111.83,
+        "end_ts": 142.1
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "query": "What did they say about firing an employee for poor performance?",
+    "query_type": "hard_negative",
+    "file_hint": null,
+    "relevant_chunks": [],
+    "hard_negative_style": true
+  },
+  {
+    "id": 23,
+    "query": "How does computer vision or image recognition work?",
+    "query_type": "hard_negative",
+    "file_hint": null,
+    "relevant_chunks": [],
+    "hard_negative_style": true
+  }
+]

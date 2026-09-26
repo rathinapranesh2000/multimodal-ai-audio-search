@@ -12,21 +12,17 @@ The evaluation is designed not only to measure the final system, but also to det
 
 ## 2. Golden Dataset
 
-The evaluation dataset should contain approximately 5–6 audio recordings.
+The scored set is the five recordings currently indexed in the UI:
 
-Each recording should:
+| File | Chunks | Duration |
+| --- | --- | --- |
+| AI_Engineering_Mock_Interview.wav | 20 | 8:00 |
+| Google_Coding_Interview.wav | 36 | 8:00 |
+| System_Design_of_ChatGPT.wav | 36 | 8:00 |
+| Behavioral_mock_Interview.wav | 17 | 6:12 |
+| llm_systems_interview.wav | 23 | 8:00 |
 
-- Contain two speakers.
-- Have meaningful conversational content.
-- Have sufficient duration for multiple retrieval scenarios.
-- Contain distinct topics and facts.
-- Include known speaker and timestamp ground truth.
-
-The dataset should support questions where the correct evidence can be identified precisely.
-
-The final hackathon dataset must consist of recordings collected or created during the official hacking window.
-
-Pre-existing rehearsal recordings must not be used as the final hackathon evaluation dataset.
+Queries live in `eval/golden_queries.json` (23 rows). Labels are under `relevant_chunks`. Queries 8, 22, and 23 are hard negatives with empty label lists and `hard_negative_style: true`. They are excluded from Recall@k.
 
 ---
 
@@ -122,29 +118,22 @@ Example:
 
 ```json
 {
-  "query": "What database did they discuss?",
-  "relevant": [
+  "id": 5,
+  "query": "What did they discuss about the electrical power plan?",
+  "query_type": "keyword",
+  "file_hint": "Behavioral_mock_Interview.wav",
+  "relevant_chunks": [
     {
-      "file": "interview_01.wav",
-      "speaker": "SPEAKER_01",
-      "start_time": 142.2,
-      "end_time": 158.7
+      "file": "Behavioral_mock_Interview.wav",
+      "speaker": "SPEAKER_00",
+      "start_ts": 55.58,
+      "end_ts": 94.9
     }
   ]
 }
 ```
 
-Ground truth should identify the relevant:
-
-- File
-- Speaker
-- Timestamp range
-
-wherever practical.
-
-A retrieved result is considered relevant when it overlaps or corresponds to the annotated evidence for the query according to the evaluation matching rules.
-
-The ground-truth annotations must be created from the actual final hackathon recordings.
+A hit counts when file, speaker, and time overlap a labeled span. Any shared time counts. The power-plant unit check with this label returns Recall@1 = 1.0 and MRR = 1.0.
 
 ---
 
@@ -296,27 +285,33 @@ This measures whether cross-encoder reranking improves ordering of the strongest
 
 ### Ablation Results
 
-The final evaluation should report results in a table similar to:
+`python -m tests.eval_recall` on 26 Sep 2026. Twenty labeled queries. Hard negatives are not in this table. Full copy: `eval/results.md`.
 
-```text
-                    Recall@1   Recall@3   Recall@5   MRR
-Lexical
-Semantic
-Hybrid / RRF
-Hybrid + Reranker
-```
+| mode | Recall@1 | Recall@3 | Recall@5 | Precision@5 | MRR | queries |
+| --- | --- | --- | --- | --- | --- | --- |
+| lexical | 0.250 | 0.600 | 0.600 | 0.140 | 0.373 | 20 |
+| semantic | 0.500 | 0.750 | 0.900 | 0.260 | 0.650 | 20 |
+| hybrid_rrf | 0.350 | 0.600 | 0.750 | 0.190 | 0.539 | 20 |
+| hybrid | 0.450 | 0.750 | 0.800 | 0.230 | 0.596 | 20 |
 
-Results should also be broken down by query category where the sample size permits:
+Recall@5 by query type:
 
-```text
-                    Exact   Paraphrase   Speaker   Hard Negative   Cross-file
-Lexical
-Semantic
-Hybrid / RRF
-Hybrid + Reranker
-```
+| query_type | n | lexical | semantic | hybrid_rrf | hybrid |
+| --- | --- | --- | --- | --- | --- |
+| keyword | 8 | 0.875 | 1.000 | 0.875 | 0.875 |
+| paraphrase | 9 | 0.556 | 0.889 | 0.778 | 0.778 |
+| cross_file | 2 | 0.500 | 1.000 | 0.500 | 1.000 |
+| speaker_specific | 1 | 0.000 | 0.000 | 0.000 | 0.000 |
 
-The purpose is to measure the contribution of each stage rather than assuming that a more complex pipeline is automatically better.
+The speaker_specific row is query 6 only. Query 8 is in the hard-negative table.
+
+| id | query_type | lexical | semantic | hybrid_rrf | hybrid |
+| --- | --- | --- | --- | --- | --- |
+| 8 | speaker_specific | PASS | PASS | PASS | FAIL |
+| 22 | hard_negative | PASS | PASS | PASS | FAIL |
+| 23 | hard_negative | PASS | PASS | PASS | FAIL |
+
+A hard negative passes when no top-5 chunk has `rerank_score >= -5.0`. Modes without a rerank score pass. Hybrid fails all three because sigmoid scores are above `-5.0`.
 
 ---
 
@@ -557,30 +552,18 @@ The objective is to make the final evaluation repeatable.
 
 ## 14. Final Results
 
-The final hackathon submission should report actual measured values.
+Measured on the 20 labeled queries. Source: `eval/results.md`.
 
-Example structure:
+| mode | Recall@1 | Recall@3 | Recall@5 | Precision@5 | MRR |
+| --- | --- | --- | --- | --- | --- |
+| lexical | 0.250 | 0.600 | 0.600 | 0.140 | 0.373 |
+| semantic | 0.500 | 0.750 | 0.900 | 0.260 | 0.650 |
+| hybrid_rrf | 0.350 | 0.600 | 0.750 | 0.190 | 0.539 |
+| hybrid | 0.450 | 0.750 | 0.800 | 0.230 | 0.596 |
 
-```text
-Recall@1:
-Recall@3:
-Recall@5:
-Precision@5:
-MRR:
+Ingestion on this CPU, from completed jobs: diarization about 9–10 minutes for an 8-minute file. Transcription runs in parallel and finishes sooner (about 1–2 minutes on the files already indexed). First search in a fresh process spends about 30 seconds loading the embedding and reranker models. Later searches in that process are the retrieval, rerank, and LLM time.
 
-Lexical:
-Semantic:
-Hybrid / RRF:
-Hybrid + Reranker:
-
-Average ingestion latency:
-Average search latency:
-Average end-to-end latency:
-```
-
-The final report should also include the results broken down by query category where practical.
-
-No values should be entered until the corresponding evaluation has actually been executed.
+The UI demo query “Why can AI coding agents fail in production?” was run in all four modes against the five ready recordings. Hits include file, speaker, timestamps, rank notes, and Play from. Semantic and Hybrid + rerank also returned chunks from `System_Design_of_ChatGPT.wav` and `llm_systems_interview.wav` beside the `AI_Engineering_Mock_Interview.wav` evidence.
 
 ---
 
@@ -594,57 +577,37 @@ Precision@5  >= 0.60
 MRR          >= 0.70
 ```
 
-These are target thresholds rather than existing results.
+Measured against those targets, best mode on each metric:
 
-The final report should clearly distinguish:
+| metric | target | best measured | mode | meets target |
+| --- | --- | --- | --- | --- |
+| Recall@5 | 0.80 | 0.900 | semantic | yes |
+| Precision@5 | 0.60 | 0.260 | semantic | no |
+| MRR | 0.70 | 0.650 | semantic | no |
 
-```text
-Target
-Actual measured result
-Difference from target
-```
+Hybrid + rerank Recall@5 is 0.800, which meets the Recall@5 target and misses Precision@5 and MRR.
 
 ---
 
 ## 16. Failure Analysis
 
-For queries that fail, document:
+Three cases were written up from the score dump in `eval/known_failures.md`. No new search was run for that note.
 
-```text
-Query
-Expected evidence
-Retrieved evidence
-Failure category
-Likely cause
-Potential improvement
-```
+Query 17, “How should a chatbot maintain conversation history?” The reranker put `AI_Engineering_Mock_Interview.wav` 450.02–479.96 first (cosine similarity 0.722741, rerank 0.500). Two `System_Design_of_ChatGPT.wav` chunks had higher cosine similarity (0.777368 and 0.756799) and lower rerank scores (0.047 and 0.015).
 
-Example:
+Query 20, “How can a chatbot provide factual and reliable information?” The labeled `System_Design_of_ChatGPT.wav` chunk at 299.62–323.48 was semantic rank 30, RRF rank 7 of 20, and rerank rank 11 with score 0.000156. It missed the top 5. The rank-5 rerank score was 0.001601.
 
-```text
-Query:
-"What did they say about database migration?"
+Query 21, “How can a retrieval system combine exact matching with meaning-based matching?” The hybrid-search chunk at 111.83–142.10 had cosine similarity 0.660679 and semantic rank 5. It ranked below `Google_Coding_Interview.wav` 197.21–228.77 (0.683568) and `AI_Engineering_Mock_Interview.wav` 79.36–111.83 (0.683203). Hybrid + rerank top 5 did not include it.
 
-Expected:
-interview_03.wav / SPEAKER_02 / 05:12–05:31
+Query 6, the only normal speaker-specific query, has Recall@5 0.000 in every mode. The query text does not name `SPEAKER_00`, and retrieval does not filter by speaker unless the query does.
 
-Retrieved:
-interview_01.wav / SPEAKER_01 / 02:44–03:02
-
-Failure:
-Cross-file ambiguity
-
-Likely cause:
-Semantically similar database discussion outranked the migration-specific evidence.
-```
-
-This provides evidence for future retrieval improvements and makes the evaluation useful beyond a single aggregate score.
+`relevance_min_logit` remains `-5.0`. Hybrid hard negatives fail that check because sigmoid scores are above it, and the cutoff is intentionally left there. Query 1's genuine top score is 0.000443, which sits between hard-negative maxima 0.0000652 (query 22) and 0.000774 (query 23). An absolute rerank score cannot tell those cases apart. The guard is not tuned further.
 
 ---
 
 ## 17. Limitations
 
-The evaluation dataset is expected to be relatively small.
+The evaluation dataset is 23 queries on five recordings.
 
 Therefore:
 
@@ -657,5 +620,7 @@ Therefore:
 - LLM evaluation can contain subjective components.
 - CPU-only execution increases ingestion latency.
 - A small golden dataset may not represent production-scale query diversity.
+- Gemini generation reached the API successfully but was blocked by the free-tier quota limit (20 requests/day); Groq served as the working fallback for the majority of this evaluation.
+- The PII redaction regex over-matches on common phrases (e.g. 'I'm currently') as name redactions; this is a known false-positive pattern in the current rule-based approach.
 
 These limitations should be considered when interpreting the final results.

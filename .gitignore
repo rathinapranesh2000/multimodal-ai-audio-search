@@ -81,11 +81,9 @@ build/
 # Audio / Dataset
 # ==========================================
 
-dataset/audio/
-dataset/raw/
-dataset/processed/
+dataset/work/
+uploads/
 
-*.wav
 *.mp3
 *.m4a
 *.mp4

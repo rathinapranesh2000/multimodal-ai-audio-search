@@ -24,17 +24,14 @@ The retrieved evidence should remain connected to the original speaker and times
                     └──────────┬──────────┘
                                │
                                ▼
-                    ┌─────────────────────┐
-                    │ Speaker Diarization │
-                    │      pyannote       │
-                    └──────────┬──────────┘
-                               │
-                               ▼
-                    ┌─────────────────────┐
-                    │        ASR          │
-                    │   faster-whisper    │
-                    └──────────┬──────────┘
-                               │
+              ┌────────────────┴────────────────┐
+              │                                 │
+              ▼                                 ▼
+   ┌─────────────────────┐         ┌─────────────────────┐
+   │ Speaker Diarization │         │        ASR          │
+   │ pyannote, 2 speakers│         │ faster-whisper, en  │
+   └──────────┬──────────┘         └──────────┬──────────┘
+              └────────────────┬──────────────┘
                                ▼
                     ┌─────────────────────┐
                     │ Speaker-aware       │
@@ -87,7 +84,7 @@ The retrieved evidence should remain connected to the original speaker and times
                     └─────────────────────┘
 ```
 
-This follows the intended architecture of validation, diarization, ASR, speaker-aware chunking, PII handling, hybrid retrieval, fusion, reranking, and grounded generation.
+This is the running pipeline. Validation writes a 16 kHz mono WAV. Pyannote and Whisper then run together. Pyannote is given an in-memory waveform, `num_speakers=2`. Whisper uses `language=en`. Alignment builds speaker-aware chunks, PII is redacted, and both the FTS vector and the 384-d embedding are stored on `audiorag.chunks`.
 
 ---
 
@@ -107,7 +104,7 @@ The system should reject unsupported or malformed files early.
 
 ### Step 2 — Speaker diarization
 
-Use `pyannote.audio` to identify speaker turns.
+`pyannote/speaker-diarization-community-1` runs with `num_speakers=2`. The audio is passed as a waveform dictionary, not a file path.
 
 Expected structure:
 
@@ -119,7 +116,7 @@ SPEAKER_00 → 00:21.8 - 00:35.1
 
 ### Step 3 — Speech recognition
 
-Use `faster-whisper` to convert speech into timestamped text.
+`faster-whisper` small, int8, `language=en`, runs in parallel with diarization and returns word timestamps.
 
 ### Step 4 — Speaker-aware chunking
 
@@ -187,7 +184,7 @@ embedding
 search_vector
 ```
 
-Exact schema and indexes will be implemented and validated during the hackathon.
+The live tables are `audiorag.audio_files` and `audiorag.chunks`. Full-text search uses `content_redacted` only. Embeddings use an HNSW index. Collections at or below 20,000 rows use an exact cosine scan.
 
 ---
 
@@ -280,9 +277,11 @@ The reranker receives:
 (query, candidate_chunk)
 ```
 
-and produces a relevance score.
+and `CrossEncoder.predict` applies a sigmoid, because the model has one label. The value stored as `rerank_score` is therefore in `(0, 1)`, not a raw logit.
 
-The strongest candidates are then selected for answer generation.
+`relevance_min_logit` stays `-5.0`, below every labeled-query score, including query 1 at 0.000443. That value does not withhold generation. It is not a calibrated confidence cutoff. Query 1 sits between hard-negative maxima 0.0000652 and 0.000774, so no absolute score can mean "no relevant chunk exists." A later guard would need an LLM check of the top hit, or the gap between top-1 and top-2 inside that query.
+
+The top 5 candidates are passed to answer generation.
 
 ---
 
@@ -307,8 +306,9 @@ The LLM should answer using retrieved evidence.
 Planned model providers:
 
 ```text
-Primary: Google Gemini
-Fallback: Groq
+Primary: Gemini gemini-3.8-flash
+Fallback: Groq (the model set in GROQ_MODEL)
+Last: evidence text plus citations, with no model call
 ```
 
 The generated response should contain:
@@ -450,18 +450,16 @@ The primary UX goal is to move from a natural-language query directly to verifia
 
 ---
 
-## 18. Implementation Constraint
+## 18. What is running
 
-This document defines the intended architecture.
+The API is the project virtualenv: `.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000`. The UI is Vite on `127.0.0.1:5173`.
 
-The actual application implementation will be developed during the official hackathon window.
+Deviations from the first sketch:
 
-Implementation details may change when required by:
+- Diarization and transcription run in parallel, not one after the other.
+- Pyannote reads a waveform in memory because the static ffmpeg build has no libavutil for TorchCodec.
+- Speaker count is fixed at 2 and Whisper language is fixed to English.
+- The rerank score is a sigmoid probability. `relevance_min_logit` stays at `-5.0` so labeled queries are not withheld. No absolute cutoff separates query 1 (0.000443) from the hard negatives.
+- One `<audio>` element is reused for Play from. `playbackRate` stays at 1.
 
-- Time constraints
-- Hardware limitations
-- Library compatibility
-- Runtime performance
-- Validation results
-
-Any architectural deviation should be documented during the hackathon.
+Measured retrieval output is in `eval/results.md`.

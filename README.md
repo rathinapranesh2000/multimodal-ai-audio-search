@@ -290,9 +290,11 @@ The detailed retrieval and failure-handling design follows the architecture docu
 
 ## Evaluation
 
-The system will be evaluated using a small golden dataset containing known questions and relevant transcript segments.
+The labeled set is `eval/golden_queries.json`: 23 queries over the five indexed interviews. Twenty queries have `relevant_chunks` spans. Three are hard negatives (queries 8, 22, and 23) and are not averaged into Recall@k.
 
-Primary retrieval metrics include:
+A hit matches a label when the file, speaker, and time overlap. Any shared time counts. The scorer reads `relevant_chunks`.
+
+Primary retrieval metrics:
 
 - Recall@1
 - Recall@3
@@ -300,44 +302,42 @@ Primary retrieval metrics include:
 - Precision@5
 - Mean Reciprocal Rank (MRR)
 
-Recall@5 is the primary retrieval success criterion.
+The harness is `python -m tests.eval_recall`. It writes `eval/results.md`.
 
-Evaluation categories include:
+Indexed recordings used for that run:
 
-- Exact keyword queries
-- Semantic/paraphrased queries
-- Speaker-specific queries
-- Hard-negative queries
-- Cross-file ambiguity queries
+| File | Chunks | Duration |
+| --- | --- | --- |
+| AI_Engineering_Mock_Interview.wav | 20 | 8:00 |
+| Google_Coding_Interview.wav | 36 | 8:00 |
+| System_Design_of_ChatGPT.wav | 36 | 8:00 |
+| Behavioral_mock_Interview.wav | 17 | 6:12 |
+| llm_systems_interview.wav | 23 | 8:00 |
 
-The evaluation also compares retrieval configurations to determine the contribution of each retrieval stage.
+llm_systems_interview.wav is an excerpt from a publicly released podcast episode discussing AI systems and safety; it is included in this dataset solely for hackathon evaluation and educational purposes, and speaker names within it are redacted in all indexed and displayed transcript output per this project's PII redaction policy.
 
 ## Retrieval Ablation
 
-The same labeled query set will be evaluated using:
+The same 20 labeled queries were run in four modes:
 
-```text
-1. Lexical only
-2. Semantic only
-3. Hybrid / RRF
-4. Hybrid / RRF + reranker
-```
+| mode | Recall@1 | Recall@3 | Recall@5 | Precision@5 | MRR | queries |
+| --- | --- | --- | --- | --- | --- | --- |
+| lexical | 0.250 | 0.600 | 0.600 | 0.140 | 0.373 | 20 |
+| semantic | 0.500 | 0.750 | 0.900 | 0.260 | 0.650 | 20 |
+| hybrid_rrf | 0.350 | 0.600 | 0.750 | 0.190 | 0.539 | 20 |
+| hybrid | 0.450 | 0.750 | 0.800 | 0.230 | 0.596 | 20 |
 
-The purpose of the ablation is to measure the incremental contribution of each retrieval strategy rather than assuming that additional components automatically improve retrieval quality.
+On this set, semantic retrieval has the highest Recall@5 (0.900), Precision@5 (0.260), and MRR (0.650). Hybrid + rerank is above lexical and hybrid/RRF on Recall@1 and MRR, and below semantic on Recall@5.
 
-The final results will be reported by retrieval configuration and query category.
+Hard negatives, scored separately. A pass means no top-5 chunk has `rerank_score >= -5.0`. Lexical, semantic, and hybrid/RRF do not set a rerank score, so they pass. Hybrid + rerank fails all three because the cross-encoder returns sigmoid scores in `(0, 1)`, which are always above `-5.0`.
 
-Example:
+| id | query_type | lexical | semantic | hybrid_rrf | hybrid |
+| --- | --- | --- | --- | --- | --- |
+| 8 | speaker_specific | PASS | PASS | PASS | FAIL |
+| 22 | hard_negative | PASS | PASS | PASS | FAIL |
+| 23 | hard_negative | PASS | PASS | PASS | FAIL |
 
-```text
-                    Recall@1   Recall@3   Recall@5   MRR
-Lexical
-Semantic
-Hybrid / RRF
-Hybrid + Reranker
-```
-
-Actual values will be populated only after the implementation and evaluation are completed during the official hackathon window.
+`relevance_min_logit` stays at `-5.0` so none of the 20 labeled queries are withheld. A single absolute cutoff cannot separate them from hard negatives: query 1's genuine top score is 0.000443, between hard-negative maxima 0.0000652 and 0.000774. Rerank scores only rank candidates inside one query. See `eval/known_failures.md` for queries 17, 20, and 21.
 
 ## Success Criteria
 
@@ -349,13 +349,11 @@ Precision@5  >= 0.60
 MRR          >= 0.70
 ```
 
-These are evaluation targets, not pre-existing results.
+These are targets. On the 20 labeled queries, semantic retrieval reaches Recall@5 0.900 and misses Precision@5 (0.260) and MRR (0.650). Hybrid + rerank reaches Recall@5 0.800 and misses the other two targets. The full comparison is in the ablation table above.
 
-The final submission will report the actual measured results separately from these target thresholds.
+## Demo
 
-## Planned Demo
-
-The demo flow will be:
+The UI at `http://127.0.0.1:5173` already runs this flow. The search control selects Lexical only, Semantic only, Hybrid / RRF, or Hybrid + rerank. Each hit shows the file, speaker, timestamps, and a Play from button on one shared audio element.
 
 ```text
 Upload audio
@@ -389,11 +387,9 @@ Why was it retrieved?
 
 ## Project Status
 
-This repository contains the planned architecture and evaluation methodology before the official hackathon implementation.
+Ingestion, search, and the React UI are running. Diarization is fixed at 2 speakers and Whisper is fixed to English. Pyannote receives an in-memory waveform. Answers try Gemini (`gemini-3.8-flash`), then Groq, then evidence with citations.
 
-The application implementation will be developed during the official hackathon window.
-
-No final retrieval metrics, accuracy measurements, latency measurements, or evaluation results are claimed before the corresponding experiments are actually run.
+Measured retrieval numbers are in `eval/results.md` and in the ablation table above. They come from `python -m tests.eval_recall` on `eval/golden_queries.json`. They are not targets. Semantic Recall@5 is 0.900, which meets the 0.80 Recall@5 target. Precision@5 and MRR stay below their targets in every mode.
 
 ## Coding Agent Transparency
 
@@ -432,13 +428,13 @@ Any significant architectural deviation should be documented along with the reas
 
 The initial system has several known limitations:
 
-- The golden dataset is relatively small.
-- The recordings focus on two-speaker conversations.
-- ASR errors can affect transcript quality.
-- Diarization errors can affect speaker-specific retrieval.
-- Timestamp alignment may be imperfect around overlapping speech.
-- Evaluation results may not generalize to all audio domains.
-- LLM-based answer evaluation can contain subjective components.
-- CPU-only execution increases ingestion latency compared with GPU-based processing.
+- The golden set is 23 queries on five recordings.
+- The one normal speaker-specific query (query 6) has Recall@5 of 0.000 in all four modes. Speaker is stored on every chunk and filters retrieval only when the query names a speaker.
+- Query 17: the reranker promoted a chunk with cosine similarity 0.723 over System_Design chunks at 0.777 and 0.757.
+- Query 20: the labeled chunk was semantic rank 30 and rerank rank 11, so it missed the top 5.
+- Query 21: the hybrid-search chunk had cosine similarity 0.661 and semantic rank 5, behind two higher-scoring chunks.
+- Rerank scores are only a ranking inside one query. Query 1's real top score (0.000443) sits between hard-negative maxima (0.0000652 and 0.000774), so `relevance_min_logit` stays at `-5.0` and does not withhold. A later guard would need an LLM check of the top hit, or a top-1 versus top-2 gap, not a lower absolute cutoff.
+- ASR and diarization errors still change the text that is indexed.
+- CPU diarization of an 8-minute file takes about 9–10 minutes.
 
 These limitations will be considered when interpreting the final evaluation.

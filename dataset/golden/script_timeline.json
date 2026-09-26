@@ -1,0 +1,1770 @@
+[
+  {
+    "slug": "harbor-pricing",
+    "title": "Harbor plan pricing interview",
+    "file": "harbor-pricing.wav",
+    "duration_seconds": 509.975,
+    "voices": [
+      "en-US-GuyNeural",
+      "en-US-JennyNeural"
+    ],
+    "anchors": [
+      {
+        "phrase": "Harbor Plan",
+        "category": "exact",
+        "query": "What did they say about the Harbor Plan?"
+      },
+      {
+        "phrase": "seat-based billing",
+        "category": "semantic",
+        "query": "How is the subscription price calculated for each person?"
+      },
+      {
+        "phrase": "forty-two dollars",
+        "category": "exact",
+        "query": "What price did the guest quote per seat?"
+      },
+      {
+        "phrase": "eu-central",
+        "category": "speaker",
+        "query": "What did Speaker 01 say about the deployment region?"
+      }
+    ],
+    "turns": [
+      {
+        "speaker_role": "A",
+        "start_ts": 0.0,
+        "end_ts": 6.99,
+        "text": "Thanks for sitting down. What plan did your team actually buy?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 7.525,
+        "end_ts": 22.904,
+        "text": "We bought the Harbor Plan after the pilot. It is the only plan that includes the audit log and the shared workspace. The starter plan was cheaper, but it hid the audit log."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 23.439,
+        "end_ts": 27.519,
+        "text": "How does the bill grow when you add people?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 28.054,
+        "end_ts": 43.575,
+        "text": "Harbor uses seat-based billing. Every active editor is one seat. Viewers are free. We refused the usage meter because finance could not predict it."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 44.11,
+        "end_ts": 48.532,
+        "text": "What number should I remember for the renewal?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 49.067,
+        "end_ts": 62.335,
+        "text": "The quote on the table was forty-two dollars per editor each month, billed annually. That figure is only for the Harbor Plan, not for the storage add-on."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 62.87,
+        "end_ts": 66.978,
+        "text": "Where will the production workspace live?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 67.513,
+        "end_ts": 83.491,
+        "text": "The guest asked for eu-central. The host had offered a United States region first. The guest said the customer contract requires the recording data to stay in eu-central."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 84.026,
+        "end_ts": 87.564,
+        "text": "Did storage change the price?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 88.099,
+        "end_ts": 103.905,
+        "text": "Storage is a separate add-on at nine dollars per terabyte. It is not part of the forty-two dollar seat. We almost mixed those two numbers in the slide, and finance caught it."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 104.44,
+        "end_ts": 108.663,
+        "text": "What worried the buyer about the contract?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 109.198,
+        "end_ts": 122.522,
+        "text": "The buyer was worried about auto-renewal. They wanted a thirty-day notice before the Harbor Plan renewed. Legal wrote that notice into the order form."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 123.057,
+        "end_ts": 127.337,
+        "text": "How did the pilot influence the decision?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 127.872,
+        "end_ts": 143.935,
+        "text": "During the pilot, three editors shared one login. That broke the audit log. Seat-based billing forces a real login per editor, which is why they accepted the higher price."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 144.47,
+        "end_ts": 147.352,
+        "text": "Was there a discount?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 147.887,
+        "end_ts": 160.127,
+        "text": "They were offered a ten percent discount if they paid the whole year up front. They declined it because procurement can only approve quarterly payments."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 160.662,
+        "end_ts": 164.599,
+        "text": "What did they say about competitors?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 165.134,
+        "end_ts": 180.713,
+        "text": "A competitor offered a cheaper unlimited plan. The guest said unlimited was a trap because exports were throttled. They stayed with Harbor because the export stayed fast."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 181.248,
+        "end_ts": 185.328,
+        "text": "Any last condition before signature?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 185.863,
+        "end_ts": 202.354,
+        "text": "The last condition was a named success manager for the first ninety days. After that, the account falls back to the normal Harbor queue. That condition is written in the statement of work."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 202.889,
+        "end_ts": 207.568,
+        "text": "Walk me through a renewal they almost got wrong."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 208.103,
+        "end_ts": 231.157,
+        "text": "Last year someone added the storage add-on into the seat price and the quote jumped without a reason. Finance split them again: forty-two dollars for the Harbor Plan seat, and nine dollars per terabyte for storage. The guest said that split has to stay visible on the order form."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 231.692,
+        "end_ts": 235.001,
+        "text": "What does a viewer cost?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 235.536,
+        "end_ts": 256.079,
+        "text": "A viewer is free on the Harbor Plan. The moment that person edits a page, they become a seat and seat-based billing starts. The guest was firm that a shared login is not a workaround, because the audit log needs a real name on every edit."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 256.614,
+        "end_ts": 261.265,
+        "text": "Why was the United States region rejected?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 261.8,
+        "end_ts": 283.313,
+        "text": "The host offered a United States region because it was the default. The guest refused it. The customer contract says the recordings stay in eu-central. Moving them later would be a second project, so they wanted the region right on day one."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 283.847,
+        "end_ts": 288.07,
+        "text": "What did legal change in the order form?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 288.605,
+        "end_ts": 308.863,
+        "text": "Legal added a thirty-day notice before the Harbor Plan can auto-renew. Without that sentence, procurement would not sign. The notice is email to the buying alias, not a phone call, and it has to go out before the invoice is created."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 309.398,
+        "end_ts": 314.191,
+        "text": "How long is the named success manager included?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 314.726,
+        "end_ts": 334.27,
+        "text": "The named success manager lasts ninety days from the kickoff, not from the signature. After ninety days the account uses the normal Harbor queue. The guest asked for the date to be printed in the statement of work so it cannot drift."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 334.805,
+        "end_ts": 339.342,
+        "text": "What export problem did the competitor have?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 339.877,
+        "end_ts": 362.188,
+        "text": "The cheaper unlimited plan throttled exports after a few gigabytes. During the pilot, a full workspace export on Harbor finished the same afternoon. That speed, not the logo, is why they stayed. Unlimited was treated as a marketing word."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 362.723,
+        "end_ts": 367.46,
+        "text": "Did they accept the ten percent prepay discount?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 367.995,
+        "end_ts": 387.767,
+        "text": "They did not. Procurement can approve quarterly payments only. A yearly prepay, even with ten percent off, was outside the policy. The guest asked the host not to put the discount back into the final slide."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 388.302,
+        "end_ts": 391.555,
+        "text": "What broke during the pilot?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 392.09,
+        "end_ts": 412.433,
+        "text": "Three editors shared one login, so the audit log showed a single person doing everyone's work. Seat-based billing stops that. The guest said they would rather pay forty-two dollars and have a true log than save money and fail an audit."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 412.968,
+        "end_ts": 417.133,
+        "text": "Is the starter plan still on the table?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 417.668,
+        "end_ts": 436.556,
+        "text": "No. The starter plan hides the audit log, and the audit log is the reason they came. The Harbor Plan is the purchase. Any later comparison should not treat the starter price as the agreed price."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 437.091,
+        "end_ts": 441.514,
+        "text": "What should I write down as the commercial fact?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 442.049,
+        "end_ts": 464.132,
+        "text": "Write this: Harbor Plan, seat-based billing, forty-two dollars per editor each month, storage extra at nine dollars per terabyte, data in eu-central, thirty-day renewal notice, and a success manager for ninety days. Viewers stay free."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 464.667,
+        "end_ts": 468.091,
+        "text": "Who is allowed to add a seat?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 468.626,
+        "end_ts": 486.715,
+        "text": "Only the workspace owner can add a seat. An editor cannot invite another editor. That rule was added after the pilot, because a contractor invited two people and the bill moved before finance saw it."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 487.25,
+        "end_ts": 490.988,
+        "text": "What happens if an editor leaves?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 491.523,
+        "end_ts": 509.44,
+        "text": "A removed editor frees the seat at the next quarterly invoice, not in the middle of the month. The guest accepted that delay. They did not want mid-month credits, because the ledger team cannot post them."
+      }
+    ]
+  },
+  {
+    "slug": "ledger-migration",
+    "title": "Ledger database migration",
+    "file": "ledger-migration.wav",
+    "duration_seconds": 509.969,
+    "voices": [
+      "en-US-AndrewNeural",
+      "en-US-AriaNeural"
+    ],
+    "anchors": [
+      {
+        "phrase": "logical replication",
+        "category": "semantic",
+        "query": "How are they copying the database without a long outage?"
+      },
+      {
+        "phrase": "March twelfth",
+        "category": "exact",
+        "query": "When is the production cutover?"
+      },
+      {
+        "phrase": "staging ledger",
+        "category": "hard_negative",
+        "query": "What did they decide about the production database cutover?"
+      },
+      {
+        "phrase": "PostgreSQL",
+        "category": "cross_file",
+        "query": "Which recording explains the database migration, not just a region name?"
+      }
+    ],
+    "turns": [
+      {
+        "speaker_role": "A",
+        "start_ts": 0.0,
+        "end_ts": 3.961,
+        "text": "Give me the shape of the migration in one pass."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 4.503,
+        "end_ts": 23.496,
+        "text": "We are leaving the old ledger and moving the books to PostgreSQL. The method is logical replication, not a dump and restore. A dump would have meant a long outage, and the shop cannot stop taking orders."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 24.038,
+        "end_ts": 26.293,
+        "text": "When does production move?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 26.836,
+        "end_ts": 44.644,
+        "text": "The production cutover is March twelfth, starting at one in the morning local time. That is the production database, not the practice copy. The maintenance page goes up only for that window."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 45.186,
+        "end_ts": 47.904,
+        "text": "What is the staging ledger for, then?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 48.446,
+        "end_ts": 67.728,
+        "text": "The staging ledger is a rehearsal. We already failed a practice cutover there on purpose. Staging is not the system customers write to. Please do not describe staging as the March twelfth event."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 68.27,
+        "end_ts": 72.0,
+        "text": "Why PostgreSQL instead of staying put?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 72.542,
+        "end_ts": 88.76,
+        "text": "The old engine could not add a column without a lock that froze checkout. PostgreSQL lets us add the nullable column online. That single limitation drove the choice."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 89.302,
+        "end_ts": 92.309,
+        "text": "How do you know replication is healthy?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 92.851,
+        "end_ts": 108.838,
+        "text": "We watch replication lag. If lag stays under two seconds for a full business day, the cutover is allowed. If lag spikes, March twelfth slips by a week."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 109.38,
+        "end_ts": 111.664,
+        "text": "Who signs the go decision?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 112.206,
+        "end_ts": 128.916,
+        "text": "The guest owns the go decision for the production database. The host only confirms that the backup snapshot finished. One person must say go, so the call is not a committee."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 129.458,
+        "end_ts": 133.419,
+        "text": "What happens to the old primary after cutover?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 133.961,
+        "end_ts": 150.353,
+        "text": "The old primary becomes read-only for fourteen days. It is a rollback path, not a second place to write. Writes after March twelfth go only to PostgreSQL."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 150.895,
+        "end_ts": 153.612,
+        "text": "Did anyone suggest a different night?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 154.154,
+        "end_ts": 170.141,
+        "text": "Someone suggested a Friday. The guest rejected Friday because a failed cutover would sit all weekend. March twelfth is a Tuesday so the on-call team is in the building."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 170.683,
+        "end_ts": 172.967,
+        "text": "How are sequences handled?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 173.509,
+        "end_ts": 189.959,
+        "text": "Sequences are copied before the trigger flip. Missing that step would reuse invoice numbers. The checklist item is literally called sequence floor, and it blocks the cutover."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 190.501,
+        "end_ts": 193.363,
+        "text": "What should a searcher not confuse?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 193.905,
+        "end_ts": 211.193,
+        "text": "People keep mixing the staging ledger with the production cutover. Staging already happened. The production move is March twelfth and uses logical replication into PostgreSQL."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 211.735,
+        "end_ts": 214.915,
+        "text": "Describe the failed practice cutover."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 215.457,
+        "end_ts": 239.973,
+        "text": "On the staging ledger they flipped the trigger before the sequence floor was copied. New invoices reused old numbers. Nothing customer-facing broke, because staging is not production. The guest still called it a failed rehearsal and put sequence floor on the blocking list."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 240.515,
+        "end_ts": 244.649,
+        "text": "What lag number allows March twelfth to proceed?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 245.191,
+        "end_ts": 268.001,
+        "text": "Replication lag must stay under two seconds for a full business day. Logical replication into PostgreSQL is the pipe. If the lag spikes on the day before, the production cutover slips a week. A green check at noon is not enough."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 268.543,
+        "end_ts": 270.798,
+        "text": "Why not a dump and restore?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 271.34,
+        "end_ts": 292.358,
+        "text": "A dump would freeze checkout for the length of the copy. The shop takes orders overnight. Logical replication lets the old engine keep serving while PostgreSQL catches up. That is the whole reason the method was chosen."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 292.9,
+        "end_ts": 296.369,
+        "text": "What does the old primary do after the flip?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 296.911,
+        "end_ts": 318.882,
+        "text": "It becomes read-only for fourteen days. It is a rollback copy, not a second writer. Any write after March twelfth goes to PostgreSQL only. The host will revoke the old write role before the maintenance page comes down."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 319.424,
+        "end_ts": 321.737,
+        "text": "Why was Friday rejected?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 322.279,
+        "end_ts": 341.764,
+        "text": "A Friday failure would sit until Monday. March twelfth is a Tuesday so the people who can roll back are in the building. The guest was the one who rejected Friday. The host had liked it because traffic is lighter."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 342.306,
+        "end_ts": 344.561,
+        "text": "Who says go?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 345.103,
+        "end_ts": 364.357,
+        "text": "The guest says go for the production database. The host only confirms the backup snapshot finished. They do not want a committee on the call. If the guest is absent, the cutover does not start."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 364.899,
+        "end_ts": 368.513,
+        "text": "What column problem forced the engine change?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 369.055,
+        "end_ts": 390.275,
+        "text": "The old engine locked the ledger when a column was added, and checkout froze. PostgreSQL can add the nullable column online. They are not moving for fashion. They are moving because a schema change cannot stop orders."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 390.817,
+        "end_ts": 394.633,
+        "text": "What is explicitly not the March twelfth event?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 395.175,
+        "end_ts": 415.73,
+        "text": "The staging ledger rehearsal is not the March twelfth event. Staging already happened, and it failed on purpose around sequences. Anyone who searches for the production cutover should ignore notes that only mention the staging ledger."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 416.272,
+        "end_ts": 419.279,
+        "text": "What time does the maintenance page go up?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 419.821,
+        "end_ts": 438.67,
+        "text": "One in the morning local time on March twelfth. The page stays up only for the production window. The guest wants the status text to say production database, so nobody thinks the staging ledger is moving again."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 439.212,
+        "end_ts": 441.959,
+        "text": "How are invoice numbers protected?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 442.501,
+        "end_ts": 461.523,
+        "text": "The sequence floor is copied before the trigger flip. The checklist item blocks the cutover until the floor on PostgreSQL is higher than the last production invoice. Skipping it is what broke the staging ledger."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 462.065,
+        "end_ts": 464.609,
+        "text": "What would cause a one-week slip?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 465.151,
+        "end_ts": 485.909,
+        "text": "Lag over two seconds, a missing snapshot, or the guest not on the call. Any one of those slips March twelfth by a week. A cosmetic report bug does not slip it. They separated blockers from annoyances."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 486.451,
+        "end_ts": 489.602,
+        "text": "Give me the sentence a search should find."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 490.144,
+        "end_ts": 509.427,
+        "text": "The production cutover is March twelfth, using logical replication into PostgreSQL, with the staging ledger left behind as a rehearsal that already happened. The old primary stays read-only for fourteen days."
+      }
+    ]
+  },
+  {
+    "slug": "lumen-support",
+    "title": "Lumen support outage review",
+    "file": "lumen-support.wav",
+    "duration_seconds": 509.93,
+    "voices": [
+      "en-GB-RyanNeural",
+      "en-GB-SoniaNeural"
+    ],
+    "anchors": [
+      {
+        "phrase": "ticket 4812",
+        "category": "exact",
+        "query": "What happened in ticket 4812?"
+      },
+      {
+        "phrase": "edge cache",
+        "category": "semantic",
+        "query": "Why were customers seeing a stale message?"
+      },
+      {
+        "phrase": "Lisbon",
+        "category": "speaker",
+        "query": "What did Speaker 01 say about the Lisbon site?"
+      }
+    ],
+    "turns": [
+      {
+        "speaker_role": "A",
+        "start_ts": 0.0,
+        "end_ts": 3.538,
+        "text": "Which ticket are we reviewing?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 4.141,
+        "end_ts": 20.221,
+        "text": "This review is ticket 4812. It is the banner incident, not the login incident from last month. If a note says login, it is the wrong ticket."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 20.824,
+        "end_ts": 25.004,
+        "text": "What did customers actually see?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 25.607,
+        "end_ts": 41.527,
+        "text": "Customers saw a stale banner that said the service was down, even after the repair. The origin was healthy. The edge cache kept the old banner for forty minutes."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 42.13,
+        "end_ts": 45.989,
+        "text": "Where did the bad cache live?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 46.592,
+        "end_ts": 61.964,
+        "text": "The stale banner was served from the Lisbon pop. Other cities had already refreshed. Lisbon kept the old object because the purge list skipped that site."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 62.567,
+        "end_ts": 66.748,
+        "text": "How long was the user impact?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 67.351,
+        "end_ts": 84.718,
+        "text": "The origin fault lasted six minutes. The visible banner lasted forty minutes because of the edge cache. Those are two different clocks, and the report must keep them apart."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 85.321,
+        "end_ts": 88.44,
+        "text": "What was the fix?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 89.043,
+        "end_ts": 103.547,
+        "text": "The fix was a targeted purge of the banner object, then a config change so Lisbon is on the default purge list. We did not restart the whole network."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 104.15,
+        "end_ts": 107.527,
+        "text": "Who noticed it first?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 108.13,
+        "end_ts": 128.713,
+        "text": "A support agent in the Lisbon queue noticed the banner still showing after the status page went green. That agent opened ticket 4812. Monitoring did not page, because the origin probes were green."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 129.316,
+        "end_ts": 133.336,
+        "text": "What will we change in the runbook?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 133.939,
+        "end_ts": 150.758,
+        "text": "The runbook now says to purge the edge cache before declaring the incident over. A green origin is not enough. The closer must fetch the banner from Lisbon and read it."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 151.361,
+        "end_ts": 155.735,
+        "text": "Was any customer data exposed?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 156.338,
+        "end_ts": 176.342,
+        "text": "No customer data was exposed. The banner was a static sentence. The embarrassment was accuracy, not a leak. Please do not describe ticket 4812 as a breach."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 176.945,
+        "end_ts": 180.418,
+        "text": "What is the follow-up owner?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 181.021,
+        "end_ts": 193.949,
+        "text": "The guest owns the purge-list change. The host owns the runbook sentence. Both must be done before the next Friday review."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 194.552,
+        "end_ts": 198.186,
+        "text": "Give me the one-line lesson."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 198.789,
+        "end_ts": 214.451,
+        "text": "The lesson from ticket 4812 is that an edge cache can outlive the outage. Check Lisbon, not only the origin, before you tell customers the banner is gone."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 215.054,
+        "end_ts": 218.946,
+        "text": "Separate the two clocks for me."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 219.549,
+        "end_ts": 244.44,
+        "text": "The origin fault lasted six minutes. The banner customers saw lasted forty minutes. Ticket 4812 is about that gap. The extra thirty-four minutes were the edge cache, not a second outage. The report has to show both clocks."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 245.043,
+        "end_ts": 249.192,
+        "text": "Why did monitoring stay green?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 249.795,
+        "end_ts": 271.053,
+        "text": "The probes hit the origin, and the origin was healthy after six minutes. They never fetched the banner from the Lisbon pop. A green probe cannot see a stale object sitting at the edge. That is why no page fired."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 271.656,
+        "end_ts": 274.84,
+        "text": "Who opened the ticket?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 275.443,
+        "end_ts": 294.224,
+        "text": "A support agent in the Lisbon queue opened ticket 4812 after the status page was already green and the banner was still up. The agent is the start of the timeline. Monitoring is not."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 294.827,
+        "end_ts": 298.719,
+        "text": "What exactly was purged?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 299.322,
+        "end_ts": 317.685,
+        "text": "Only the banner object. They did not restart the network and they did not purge the whole site. The guest said a wide purge would have been theater. The host agreed after seeing the cache key."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 318.288,
+        "end_ts": 322.951,
+        "text": "What config change follows the purge?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 323.554,
+        "end_ts": 343.526,
+        "text": "Lisbon is added to the default purge list. It had been skipped by an old exception from a network test. The guest owns that change. Until it lands, a human must remember Lisbon by hand."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 344.129,
+        "end_ts": 348.116,
+        "text": "What does the closer have to do now?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 348.719,
+        "end_ts": 369.302,
+        "text": "The closer fetches the banner from Lisbon and reads the sentence before declaring the incident over. A green origin is not the close condition. The runbook sentence is the host's task, due before Friday's review."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 369.905,
+        "end_ts": 372.928,
+        "text": "Was this a breach?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 373.531,
+        "end_ts": 392.377,
+        "text": "No. The banner was a static sentence and no customer data moved. Calling ticket 4812 a breach would be false. The harm was telling people the service was down when it was not."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 392.98,
+        "end_ts": 398.254,
+        "text": "Which incident is easy to confuse with this one?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 398.857,
+        "end_ts": 421.047,
+        "text": "The login incident from last month. Different ticket, different symptom, different fix. If the notes mention passwords or sign-in, they are not about ticket 4812. This review is the stale banner only."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 421.65,
+        "end_ts": 425.703,
+        "text": "Why did other cities look fine?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 426.306,
+        "end_ts": 445.216,
+        "text": "Other cities had refreshed the banner. Lisbon kept the old object because the purge list skipped that pop. A customer in another city would have seen the true status. Geography mattered."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 445.819,
+        "end_ts": 450.289,
+        "text": "What is the one check that would have caught it?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 450.892,
+        "end_ts": 470.252,
+        "text": "Fetch the banner from the Lisbon pop after the origin is green. If the sentence still says the service is down, the edge cache is wrong. Ticket 4812 exists because nobody did that fetch."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 470.855,
+        "end_ts": 474.361,
+        "text": "When is the follow-up due?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 474.964,
+        "end_ts": 491.976,
+        "text": "Both the purge-list change and the runbook sentence are due before the next Friday review. The guest owns the list. The host owns the sentence. Neither is optional."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 492.579,
+        "end_ts": 496.439,
+        "text": "Close the lesson in one line."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 497.042,
+        "end_ts": 509.327,
+        "text": "An edge cache can outlive the outage. For ticket 4812, check Lisbon before you tell customers the banner is gone."
+      }
+    ]
+  },
+  {
+    "slug": "cedar-curriculum",
+    "title": "Cedar seminar curriculum",
+    "file": "cedar-curriculum.wav",
+    "duration_seconds": 509.964,
+    "voices": [
+      "en-US-ChristopherNeural",
+      "en-US-AvaNeural"
+    ],
+    "anchors": [
+      {
+        "phrase": "field notebook",
+        "category": "semantic",
+        "query": "What do students have to write during the outdoor weeks?"
+      },
+      {
+        "phrase": "week nine",
+        "category": "exact",
+        "query": "When is the oral defense?"
+      },
+      {
+        "phrase": "Cedar Seminar",
+        "category": "cross_file",
+        "query": "Which class requires an oral defense in week nine?"
+      }
+    ],
+    "turns": [
+      {
+        "speaker_role": "A",
+        "start_ts": 0.0,
+        "end_ts": 3.947,
+        "text": "What course are we redesigning?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 4.558,
+        "end_ts": 19.987,
+        "text": "We are redesigning the Cedar Seminar. It is a field course, not the indoor lecture with the same department code. The seminar meets outside for half the term."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 20.599,
+        "end_ts": 25.916,
+        "text": "What do students produce each week outdoors?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 26.527,
+        "end_ts": 43.326,
+        "text": "Each outdoor week they add pages to a field notebook. The notebook is handwritten. Typed slides do not count. The instructor reads three pages every Friday."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 43.938,
+        "end_ts": 47.721,
+        "text": "When is the oral defense?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 48.333,
+        "end_ts": 64.969,
+        "text": "The oral defense is in week nine. Students explain one page from the field notebook out loud. Week nine is not the written exam. The written exam was removed."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 65.58,
+        "end_ts": 69.332,
+        "text": "Why drop the written exam?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 69.943,
+        "end_ts": 86.35,
+        "text": "The written exam rewarded people who stayed indoors and memorized terms. The Cedar Seminar is about observation. The oral defense checks that they were actually outside."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 86.962,
+        "end_ts": 90.778,
+        "text": "How long is the defense?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 91.39,
+        "end_ts": 108.319,
+        "text": "Each defense is eight minutes, plus four minutes of questions. The clock is visible. A defense that runs long loses the question time, not the next student's slot."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 108.931,
+        "end_ts": 112.715,
+        "text": "What is an automatic fail?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 113.326,
+        "end_ts": 127.776,
+        "text": "A missing field notebook is an automatic fail. A messy notebook can still pass. The rule is about presence of the notes, not about handwriting."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 128.388,
+        "end_ts": 132.955,
+        "text": "Can a student defend a partner's notes?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 133.566,
+        "end_ts": 149.582,
+        "text": "No. The oral defense must use pages that student wrote. Sharing a notebook was tried once and it collapsed the grading. That exception is closed."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 150.194,
+        "end_ts": 153.88,
+        "text": "What equipment is required?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 154.491,
+        "end_ts": 167.441,
+        "text": "Students bring a pencil and the field notebook. Phones stay in the bag during the outdoor hour. The instructor does not grade photographs."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 168.053,
+        "end_ts": 171.478,
+        "text": "How is the grade split?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 172.089,
+        "end_ts": 187.355,
+        "text": "Sixty percent is the field notebook and forty percent is the week nine oral defense. There is no midterm. Publishing a blog does not add points."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 187.967,
+        "end_ts": 192.468,
+        "text": "What should a later search not mix up?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 193.08,
+        "end_ts": 205.149,
+        "text": "Do not mix the Cedar Seminar with the indoor methods lecture. Only the seminar has the field notebook and the week nine oral defense."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 205.76,
+        "end_ts": 209.446,
+        "text": "What counts as the notebook?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 210.058,
+        "end_ts": 235.696,
+        "text": "Handwritten pages in the field notebook. Typed slides, a blog, and phone photos do not count. The instructor reads three pages every Friday during the outdoor half of the Cedar Seminar. Missing pages are not a style problem. They are an absence."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 236.308,
+        "end_ts": 240.32,
+        "text": "What did the written exam reward?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 240.932,
+        "end_ts": 259.394,
+        "text": "It rewarded people who stayed indoors and memorized terms. The Cedar Seminar is about being outside. That is why the written exam was removed and the week nine oral defense took its place."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 260.005,
+        "end_ts": 264.181,
+        "text": "How is the eight minutes enforced?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 264.792,
+        "end_ts": 284.592,
+        "text": "A visible clock. The student gets eight minutes to explain one page, then four minutes of questions. If they run long, they lose the questions, not the next student's slot. The guest was strict about that."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 285.204,
+        "end_ts": 289.216,
+        "text": "Can messy handwriting pass?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 289.827,
+        "end_ts": 312.563,
+        "text": "Yes. The automatic fail is a missing field notebook, not ugly writing. A complete messy notebook can pass. An elegant empty one cannot. The host repeated that so students stop asking for a typing exception."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 313.174,
+        "end_ts": 317.545,
+        "text": "Why can't partners share a notebook?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 318.157,
+        "end_ts": 339.49,
+        "text": "They tried it. Grading collapsed because nobody could tell who observed what. The oral defense must use pages that student wrote. The exception is closed and it will not be reopened for a medical note without a separate process."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 340.101,
+        "end_ts": 343.494,
+        "text": "What stays in the bag?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 344.105,
+        "end_ts": 362.078,
+        "text": "Phones stay in the bag during the outdoor hour. The instructor does not grade photographs. A pencil and the field notebook are the kit. The guest said a phone photo is not an observation."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 362.69,
+        "end_ts": 367.354,
+        "text": "How is the grade split, exactly?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 367.966,
+        "end_ts": 388.614,
+        "text": "Sixty percent field notebook, forty percent week nine oral defense. No midterm and no points for publishing a blog. The indoor methods lecture has a different split, and it should not be quoted for this seminar."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 389.225,
+        "end_ts": 394.542,
+        "text": "What is the indoor course people mix up with this?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 395.154,
+        "end_ts": 415.378,
+        "text": "The methods lecture with the same department code. It meets inside and still has a written test. Only the Cedar Seminar has the field notebook and the week nine defense. A search that says lecture is the wrong course."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 415.989,
+        "end_ts": 420.458,
+        "text": "What does the student explain out loud?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 421.07,
+        "end_ts": 437.64,
+        "text": "One page they wrote in the field notebook. Not a summary of the whole term, and not a partner's page. The guest said the point is to show they were present on that day, in that place."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 438.252,
+        "end_ts": 442.394,
+        "text": "When does the instructor read work?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 443.006,
+        "end_ts": 460.881,
+        "text": "Three pages every Friday in the outdoor weeks. Week nine is the defense, not the Friday reading. Students who wait until week nine to start the notebook have already missed the Friday checks."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 461.493,
+        "end_ts": 465.081,
+        "text": "Is there any extra credit?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 465.692,
+        "end_ts": 484.057,
+        "text": "No. A blog, a photo set, or a longer paper does not add points. The grade is the notebook and the defense. The host asked twice, and the guest declined both times."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 484.668,
+        "end_ts": 489.79,
+        "text": "Give me the fact that identifies this course."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 490.401,
+        "end_ts": 509.353,
+        "text": "Cedar Seminar, handwritten field notebook, oral defense in week nine, phones away, sixty percent notes and forty percent defense. That combination is not the indoor lecture."
+      }
+    ]
+  },
+  {
+    "slug": "north-pier",
+    "title": "North Pier flood workshop",
+    "file": "north-pier.wav",
+    "duration_seconds": 509.977,
+    "voices": [
+      "en-AU-WilliamNeural",
+      "en-AU-NatashaNeural"
+    ],
+    "anchors": [
+      {
+        "phrase": "tide sensor",
+        "category": "semantic",
+        "query": "What device tells them when the water is rising?"
+      },
+      {
+        "phrase": "public workshop",
+        "category": "exact",
+        "query": "When is the public workshop about the flood gate?"
+      },
+      {
+        "phrase": "North Pier",
+        "category": "cross_file",
+        "query": "Where is the flood gate being discussed?"
+      }
+    ],
+    "turns": [
+      {
+        "speaker_role": "A",
+        "start_ts": 0.0,
+        "end_ts": 3.109,
+        "text": "Which site is this plan for?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 3.664,
+        "end_ts": 19.265,
+        "text": "This plan is only for North Pier. The south dock is a different project with a different budget. If someone says south dock, they are in the wrong meeting."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 19.821,
+        "end_ts": 22.811,
+        "text": "What structure is being added?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 23.366,
+        "end_ts": 37.31,
+        "text": "We are adding a flood gate at the mouth of North Pier. It stays open for boats on ordinary days and closes when the tide sensor crosses the mark."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 37.865,
+        "end_ts": 40.737,
+        "text": "How does the sensor decide?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 41.292,
+        "end_ts": 57.456,
+        "text": "The tide sensor sits on the outer piling. When water reaches the painted mark for ten minutes, the gate is allowed to close. A single splash does not count."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 58.011,
+        "end_ts": 61.386,
+        "text": "When can residents ask questions?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 61.941,
+        "end_ts": 78.254,
+        "text": "The public workshop is on the first Thursday of next month, in the hall beside North Pier. That workshop is for questions. It is not the construction start."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 78.809,
+        "end_ts": 82.036,
+        "text": "What did people fear last time?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 82.591,
+        "end_ts": 101.124,
+        "text": "Last time, fishers feared the gate would trap boats. The design now closes only after a harbor master confirms the channel is clear. The tide sensor alone cannot trap a boat."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 101.679,
+        "end_ts": 104.077,
+        "text": "Who pays for the gate?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 104.632,
+        "end_ts": 119.938,
+        "text": "The city capital budget pays for the gate. The sensor maintenance is paid from the harbor fee. Those are two checks, and the workshop should not blur them."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 120.493,
+        "end_ts": 123.838,
+        "text": "Is the painted mark already chosen?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 124.393,
+        "end_ts": 140.38,
+        "text": "The painted mark is one meter and twenty centimeters above the average high tide. The guest read that number from the survey. It is not a guess from the host."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 140.935,
+        "end_ts": 144.103,
+        "text": "What happens in a false alarm?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 144.658,
+        "end_ts": 161.148,
+        "text": "If the gate closes and the water never reaches the street, the harbor master files a false-alarm note. Three false alarms in a season force a review of the tide sensor mark."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 161.703,
+        "end_ts": 164.604,
+        "text": "When does construction start?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 165.159,
+        "end_ts": 179.814,
+        "text": "Construction starts the week after the public workshop, if the workshop does not surface a safety block. The start is not the same day as the workshop."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 180.369,
+        "end_ts": 182.885,
+        "text": "Summarize the decision."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 183.44,
+        "end_ts": 200.641,
+        "text": "North Pier gets a flood gate controlled by a tide sensor, with a human confirm before the gate shuts. Residents hear the plan at the public workshop before any piling is driven."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 201.196,
+        "end_ts": 204.393,
+        "text": "What is out of scope for this meeting?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 204.948,
+        "end_ts": 228.188,
+        "text": "The south dock. It has another budget and another drawing. This plan is North Pier only. If a question is about the south dock crane, it waits for the other team. The guest stopped the host from combining the slides."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 228.744,
+        "end_ts": 232.829,
+        "text": "How does the gate behave on an ordinary day?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 233.384,
+        "end_ts": 257.808,
+        "text": "It stays open so boats can pass. It closes only when the tide sensor has seen the painted mark for ten minutes and the harbor master confirms the channel is clear. A splash does not close it. A person still has to agree."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 258.363,
+        "end_ts": 260.761,
+        "text": "Where is the sensor?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 261.317,
+        "end_ts": 281.803,
+        "text": "On the outer piling at North Pier. Not on the street and not on the south dock. The guest read the location from the survey. The host had almost drawn it on the inner wall, which would have measured the wrong water."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 282.358,
+        "end_ts": 284.993,
+        "text": "What is the painted mark?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 285.548,
+        "end_ts": 303.933,
+        "text": "One meter and twenty centimeters above the average high tide. That number came from the survey, not from a guess in the room. Three false alarms in a season force a review of that mark."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 304.488,
+        "end_ts": 307.093,
+        "text": "What scared the fishers?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 307.648,
+        "end_ts": 331.007,
+        "text": "They feared the gate would shut and trap boats. The earlier sketch let the tide sensor close the gate alone. The new rule requires the harbor master to confirm the channel is clear first. The sensor cannot trap a boat by itself."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 331.562,
+        "end_ts": 333.901,
+        "text": "Who writes which check?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 334.456,
+        "end_ts": 355.209,
+        "text": "The city capital budget pays for the flood gate. The harbor fee pays for tide sensor maintenance. Two checks. The public workshop should show both, or residents will think the fee is buying the concrete."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 355.764,
+        "end_ts": 359.968,
+        "text": "What is the workshop for, and what is it not?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 360.523,
+        "end_ts": 382.49,
+        "text": "The public workshop is questions, on the first Thursday of next month, in the hall beside North Pier. It is not the construction start. Construction is the following week, and only if the workshop does not raise a safety block."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 383.045,
+        "end_ts": 385.473,
+        "text": "What is a false alarm?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 386.028,
+        "end_ts": 409.297,
+        "text": "The gate closes and the water never reaches the street. The harbor master files a note. Three of those notes in a season reopen the tide sensor mark. A real flood is not a false alarm, even if the street stays dry for an hour."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 409.853,
+        "end_ts": 412.754,
+        "text": "What blocks the first piling?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 413.309,
+        "end_ts": 435.039,
+        "text": "A safety issue raised at the public workshop. If the workshop is quiet, piling starts the next week. The start is not the Thursday of the workshop. The guest wants those dates on different lines of the notice."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 435.594,
+        "end_ts": 438.732,
+        "text": "Why ten minutes and not one?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 439.287,
+        "end_ts": 460.425,
+        "text": "One minute of water on the mark can be a wake from a ferry. Ten minutes means the tide is actually there. The guest picked ten after the fishers described wakes hitting the piling. The host had proposed one minute."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 460.98,
+        "end_ts": 464.355,
+        "text": "What does the harbor master confirm?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 464.911,
+        "end_ts": 485.456,
+        "text": "That the channel is clear of boats before the flood gate moves. The tide sensor does not see boats. It only sees water on the mark. The human confirm is the difference from the sketch people feared."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 486.012,
+        "end_ts": 489.327,
+        "text": "Summarize the North Pier decision."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 489.882,
+        "end_ts": 509.422,
+        "text": "A flood gate at North Pier, a tide sensor on the outer piling, a painted mark one meter and twenty centimeters up, a harbor master confirm, and a public workshop on the first Thursday before any piling."
+      }
+    ]
+  },
+  {
+    "slug": "kite-onboarding",
+    "title": "Kite Notes onboarding",
+    "file": "kite-onboarding.wav",
+    "duration_seconds": 509.949,
+    "voices": [
+      "en-US-EricNeural",
+      "en-US-MichelleNeural"
+    ],
+    "anchors": [
+      {
+        "phrase": "shadow session",
+        "category": "semantic",
+        "query": "How do new hires watch a real customer call?"
+      },
+      {
+        "phrase": "day four checklist",
+        "category": "exact",
+        "query": "What has to be true on the day four checklist?"
+      },
+      {
+        "phrase": "mentor pair",
+        "category": "hard_negative",
+        "query": "What is the shadow session for, as opposed to the mentor pair?"
+      }
+    ],
+    "turns": [
+      {
+        "speaker_role": "A",
+        "start_ts": 0.0,
+        "end_ts": 3.966,
+        "text": "What product is this onboarding for?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 4.501,
+        "end_ts": 20.196,
+        "text": "This onboarding is for Kite Notes. It is the support tool, not the design tool with a similar icon. New hires who open the design tool are in the wrong curriculum."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 20.731,
+        "end_ts": 24.269,
+        "text": "How do they hear a real customer?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 24.804,
+        "end_ts": 41.583,
+        "text": "On day two they join a shadow session. They listen to one live call and may not speak. The shadow session is observation. It is not a practice call with a teammate."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 42.118,
+        "end_ts": 45.742,
+        "text": "What is the mentor pair, then?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 46.277,
+        "end_ts": 65.566,
+        "text": "The mentor pair is a weekly meeting with a named coworker. It is for questions after the call. People confuse it with the shadow session. The shadow session has a customer. The mentor pair does not."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 66.101,
+        "end_ts": 69.583,
+        "text": "What does day four require?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 70.118,
+        "end_ts": 87.039,
+        "text": "The day four checklist requires three things: a finished shadow session, a written note of the customer's request, and a login to Kite Notes that can view a ticket. Missing one item blocks day five."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 87.574,
+        "end_ts": 91.341,
+        "text": "Can they take a call on day three?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 91.876,
+        "end_ts": 110.452,
+        "text": "No. Day three is still practice inside the team. The first live speaking role is day six, after the checklist. Speaking early was tried and the customer heard a wrong refund rule."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 110.987,
+        "end_ts": 114.326,
+        "text": "What note do they have to write?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 114.861,
+        "end_ts": 128.814,
+        "text": "The note must name the customer's request in one sentence and name the article they would open. A vague note such as customer was upset does not pass the day four checklist."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 129.349,
+        "end_ts": 132.631,
+        "text": "How are mentors chosen?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 133.166,
+        "end_ts": 147.918,
+        "text": "Mentors volunteer for a month. A new hire does not pick a friend. The mentor pair is assigned, and the mentor must have passed the same checklist last quarter."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 148.453,
+        "end_ts": 151.992,
+        "text": "What tool permission is enough?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 152.527,
+        "end_ts": 166.851,
+        "text": "View permission in Kite Notes is enough for day four. Edit permission waits until day six. Giving edit early let a trainee close a ticket by mistake."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 167.386,
+        "end_ts": 171.039,
+        "text": "What is the failure we keep citing?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 171.574,
+        "end_ts": 188.295,
+        "text": "The failure we cite is the wrong refund rule on a live call. That is why the shadow session is silent and why the day four checklist exists. It is not a story about the design tool."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 188.83,
+        "end_ts": 192.026,
+        "text": "Close with the sequence."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 192.561,
+        "end_ts": 209.625,
+        "text": "Sequence for Kite Notes: shadow session on day two, mentor pair during the week, day four checklist, first spoken call on day six. Skip a step and the manager resets the week."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 210.16,
+        "end_ts": 214.726,
+        "text": "Which product is easy to open by mistake?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 215.261,
+        "end_ts": 235.949,
+        "text": "The design tool with the similar icon. Kite Notes is the support tool. The curriculum does not cover the design tool. A new hire who spends day one in the design tool has not started, and the manager resets that day."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 236.484,
+        "end_ts": 241.05,
+        "text": "What may the new hire do on the shadow session?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 241.585,
+        "end_ts": 266.182,
+        "text": "Listen. They may not speak. The shadow session is one live customer call on day two. It is not a role play. The customer is real, which is why silence is the rule. The wrong refund rule was spoken once, and that ended the experiment."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 266.717,
+        "end_ts": 270.17,
+        "text": "How is the mentor pair different?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 270.705,
+        "end_ts": 293.961,
+        "text": "The mentor pair is a weekly meeting with an assigned coworker and no customer. It is for questions after the call. People keep merging the two. If a customer is on the line, it is the shadow session. If it is two employees, it is the mentor pair."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 294.496,
+        "end_ts": 298.177,
+        "text": "What are the three checklist lines?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 298.712,
+        "end_ts": 320.855,
+        "text": "A finished shadow session, a written note of the customer's request, and a Kite Notes login that can view a ticket. That is the day four checklist. Miss one line and day five does not start. The note cannot say only that the customer was upset."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 321.39,
+        "end_ts": 324.614,
+        "text": "What must the note contain?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 325.149,
+        "end_ts": 342.327,
+        "text": "One sentence naming the request, and the name of the article they would open. Vague sympathy does not pass. The guest reads the note out loud in the mentor pair and sends it back if the request is missing."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 342.863,
+        "end_ts": 346.372,
+        "text": "When may they speak to a customer?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 346.907,
+        "end_ts": 368.309,
+        "text": "Day six, after the checklist. Day three is still practice inside the team. Speaking on day three was how a trainee quoted the wrong refund rule on a live call. That story is why the silent shadow session exists."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 368.844,
+        "end_ts": 372.867,
+        "text": "What permission is enough on day four?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 373.402,
+        "end_ts": 393.091,
+        "text": "View permission in Kite Notes. Edit permission waits until day six. Edit access on day four let a trainee close a ticket by mistake. The host will not grant edit early, even if the mentor asks."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 393.626,
+        "end_ts": 396.708,
+        "text": "How is a mentor chosen?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 397.243,
+        "end_ts": 416.59,
+        "text": "They volunteer for a month and they must have passed the same checklist last quarter. The new hire does not pick a friend. The mentor pair is assigned. A volunteer who skipped the checklist last quarter is not eligible."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 417.125,
+        "end_ts": 420.92,
+        "text": "What happens if a step is skipped?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 421.455,
+        "end_ts": 441.23,
+        "text": "The manager resets the week. There is no partial credit for a charming trainee. Shadow session, mentor pair, day four checklist, first spoken call on day six. The sequence is the curriculum."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 441.765,
+        "end_ts": 445.902,
+        "text": "What is the failure everyone should remember?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 446.437,
+        "end_ts": 464.072,
+        "text": "The wrong refund rule, said out loud to a real customer. It was not a design-tool story and it was not a mentor-pair story. It happened because someone spoke during what should have been a silent shadow session."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 464.607,
+        "end_ts": 469.43,
+        "text": "Can the article name be skipped if the note is kind?"
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 469.965,
+        "end_ts": 486.658,
+        "text": "No. Kindness without the request and the article fails the day four checklist. The guest said kindness is not a ticket. The host agreed to stop accepting those notes."
+      },
+      {
+        "speaker_role": "A",
+        "start_ts": 487.193,
+        "end_ts": 491.644,
+        "text": "State the sequence a search should retrieve."
+      },
+      {
+        "speaker_role": "B",
+        "start_ts": 492.179,
+        "end_ts": 509.414,
+        "text": "Kite Notes onboarding: silent shadow session on day two, assigned mentor pair during the week, day four checklist, view-only access until day six, first spoken customer call on day six."
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "verified_by_human": false,
+  "note": "Official labels stay empty until a person listens and confirms queries.draft.json. Do not treat anchor phrases as measured ground truth.",
+  "queries": []
+}

@@ -1,0 +1,156 @@
+:root {
+  color: #1c1915;
+  background: #f4f0e6;
+  font-family: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia, serif;
+  line-height: 1.45;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.top {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  color: #8a4b08;
+}
+
+h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 600;
+}
+
+.lede {
+  margin: 0;
+  max-width: 62ch;
+}
+
+.panel {
+  background: #fffdf8;
+  border: 1px solid #e2d8c8;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+h2, h3 { margin: 0 0 12px; }
+
+.upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.library, .hits, .stages ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.library li, .hits li {
+  padding: 12px 0;
+  border-top: 1px solid #eee4d6;
+}
+
+.library li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.library li div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+button.remove {
+  background: transparent;
+  color: #8a3b2b;
+  border-color: #e4cfc6;
+  padding: 6px 10px;
+}
+
+.search {
+  display: grid;
+  grid-template-columns: 1fr 180px auto;
+  gap: 8px;
+}
+
+input, select, button {
+  border: 1px solid #d9cbb8;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+button {
+  background: #1c1915;
+  color: #fffdf8;
+  cursor: pointer;
+}
+
+.answer { margin-top: 16px; }
+
+.meta, .why {
+  color: #6d645b;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 13px;
+}
+
+.hit-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.notice { color: #1f6b4a; }
+.error { color: #9d1c1c; }
+
+.stages ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.stages li {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #eee4d6;
+}
+
+.stages li[data-state="running"] { background: #f3d7a1; }
+.stages li[data-state="done"] { background: #d7eadb; }
+
+.player { width: 100%; margin-top: 16px; }
+
+@media (max-width: 720px) {
+  .search, .library li, .hit-head { display: grid; }
+}

@@ -1,21 +1,17 @@
 # agent_log.md
 
-Running log of prompts/direction given to the coding agent during the official
-hacking window (26 Sep, 10:00-17:00). Append an entry after each significant
-prompt -- do not reconstruct this from memory afterward.
+26 Sep 2026, IST. Reconstructed from the changes made in this session.
 
-This file is committed empty before the event. Real entries are added live,
-during the hackathon, as the project is actually built.
-
-## Format
-
-```
-### [HH:MM] <short task label>
-Prompt: <what you asked the agent>
-Result: <what it produced, in one line>
-Kept / Changed / Rejected: <your call, and why>
-```
-
-## Log
-
-(empty -- entries begin at event start)
+| Time | Task | Direction given | Result | Decision |
+| --- | --- | --- | --- | --- |
+| by 14:14 | Single-chunk diarization | The upload was one `SPEAKER_00` chunk for the whole file. Find the cause and fix chunking. | Pyannote opened the WAV through TorchCodec, which cannot load `libavutil` from the static ffmpeg. That error became one span from 0:00 to the end. Whisper text had no sentence marks, so the chunker did not split it. Diarization now gets an in-memory waveform with `num_speakers=2`. Long turns split on a time budget. A 25-second clip returned both speakers. The user then confirmed 23 chunks and both speakers. | Kept the waveform path and the time split. |
+| 14:17 | Rerank scores shown as 0.000 | The hybrid UI showed rerank 0.000 on several hits, and the order matched neither the rounded rerank column nor RRF. Check whether the reranker failed. | Logs for those searches have no `rerank_failed`. `bge-reranker-base` ran. `explain()` prints `rerank {score:.3f}`, so 0.0004 and 0.0001 both display as 0.000. Sort uses the full float. | Not a bug. Did not change ranking or the model. |
+| 14:17 | Gemini and Groq 404s | `gemini-2.0-flash` 404. Show the raw error body. Do not switch to `gemini-3.8-flash` until that name is verified. List the models this Groq key can call. Do not guess. | The Gemini body said `models/gemini-2.0-flash` is gone and named `models/gemini-3.8-flash`. That name was rejected as unverified. `.env` was set to `gemini-2.5-flash`. This Groq key’s model list does not include `llama-3.3-70b-versatile`. Groq was set to `openai/gpt-oss-120b`, a text model on that list with JSON mode. | Rejected the first `gemini-3.8-flash` suggestion. Kept Groq as fallback from the real model list. |
+| 14:50 | Gemini 2.5 also 404 | `gemini-2.5-flash` returned 404, “no longer available to new users,” and the body again named `gemini-3.8-flash`. Set `GEMINI_MODEL` and the code default to it only if the docs name that model. Do not change retrieval. Keep Gemini, then Groq, then evidence. | `.env` and `app/core/config.py` were set to `gemini-3.8-flash`. A later search got a Gemini HTTP 503 and still answered through Groq. A direct Gemini call after that returned 200. The log at that time said the docs listed the model, and it did not record a URL. | The 200 shows the API accepted the name. The doc citation was not sourced until the 16:40 check. |
+| 15:05 | Play button | Repeated Play from clicks played too fast, then did nothing. The screenshot showed two bars at 0:00. Use one audio element, reuse it, set `src` only when the file changes, set `currentTime`, call `play()`, serialize those calls, and keep `playbackRate` at 1. Test five rapid clicks. | `frontend/src/playback.ts` queues `play()` on the single `<audio id="recording-player">`. The five-click test reported one player, no overlapping `play()`, and rate 1 on each seek. | Kept one element. Did not construct a new player per click. |
+| 15:24–15:48 | Golden labels | Do not author ground truth. Write the 23 queries with empty `relevant_chunks`. Surface candidates. The user fills the labels. | `eval/golden_queries.json` started empty. `eval/lookup_chunk.py` and `eval/surface_candidates.py` wrote `eval/candidates_review.md`. The user then supplied spans. A later merge filled only empty queries and left 5, 6, 7, and 20 as already labeled. | The agent did not invent labels. |
+| 16:02 | `metrics.py` key mismatch | `evaluate_rankings` read `relevant`. The file stores `relevant_chunks`, so every query scored as a total miss. Fix the reader. Prove it on the power-plant label. | The reader uses `relevant_chunks`, and still accepts `relevant` for older tests. The power-plant case returned Recall@1 1.0 and MRR 1.0. | Fixed the reader. Did not rename the dataset field. |
+| 16:04 | Eval harness pointed at the wrong file | `tests/eval_recall.py` loaded `dataset/golden/queries.json`, which has no queries, and ran only hybrid + rerank. Point it at `eval/golden_queries.json` and run lexical, semantic, hybrid/RRF, and hybrid + rerank. | The harness now loads `eval/golden_queries.json` and writes `eval/results.md`. On 20 labeled queries: semantic Recall@5 0.900, hybrid 0.800, hybrid/RRF 0.750, lexical 0.650. Hard negatives 8, 22, and 23 are not inside that average. | Kept the four-mode table. Did not fold hard negatives into Recall@k. |
+| 16:16–16:28 | Hard-negative rerank threshold | Hybrid failed all three hard negatives against `relevance_min_logit = -5.0`. Investigate. Then stop: no single cutoff can work. Leave the value below query 1’s score so labeled queries are not withheld. Do not change the guard comparison. | `CrossEncoder.predict` applies a sigmoid. Scores are rankings inside one query, not a cross-query confidence. Query 1’s real top score is 0.000443, between hard-negative maxima 0.0000652 and 0.000774. `relevance_min_logit` stays `-5.0`. The comment in `app/core/config.py` records that. A later guard would need an LLM check of the top hit, or a top-1 versus top-2 gap. | No threshold fix. The proposed midpoint 0.08012 was rejected. `_below_threshold` was not edited. |
+| 16:40 | Confirm `gemini-3.8-flash` on Google’s model page | The 14:50 row claimed the docs listed the model and did not record a URL. Fetch the model page and quote it. Do not treat the 404 body as the source. | Fetched https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash on 26 Sep 2026. Page title: Gemini 3.8 Flash. Model-code row: gemini-3.8-flash. Versions row: Stable gemini-3.8-flash. Latest update: September 2026. | Kept gemini-3.8-flash. This row is the doc source. The API 404 string is not. |
+| 16:44 | Section 20 test suite | Run pytest and record the output. Include the ingest-to-citation test. | `.venv/bin/python -m pytest`: 28 passed, 1 deselected, in 55.23s. Then `test_upload_indexes_and_search_citations_use_real_offsets`: 1 passed in 53.22s. | Both runs exited 0. |
